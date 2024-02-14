@@ -1,0 +1,86 @@
+{
+  "Name": "未命名项目",
+  "Monolithic": {
+    "Nodes": [
+      {
+        "Name": "VectorOutput_WWbuTD",
+        "Type": "VectorOutput",
+        "Id": "971514",
+        "Parameters": [
+          {
+            "Name": "OutNumber",
+            "Type": "Int32",
+            "Value": 10,
+            "Settable": false,
+            "Description": "这只是一个参数",
+            "ParentID": "971514",
+            "ParentType": "VectorOutput"
+          }
+        ],
+        "LearnableParameters": 0,
+        "InputDimensions": [ { "Dimensions": [ -10, 10 ] } ],
+        "OutputDimensions": [ { "Dimensions": [ -10 ] } ],
+        "Connected": []
+      },
+      {
+        "Name": "VectorInput_mIpoqs",
+        "Type": "VectorInput",
+        "Id": "246748",
+        "Parameters": [
+          {
+            "Name": "FeatureNumber",
+            "Type": "Int32",
+            "Value": 30,
+            "Settable": false,
+            "Description": "这只是一个参数",
+            "ParentID": "246748",
+            "ParentType": "VectorInput"
+          }
+        ],
+        "LearnableParameters": 0,
+        "InputDimensions": [ { "Dimensions": [ -10 ] } ],
+        "OutputDimensions": [ { "Dimensions": [ -10, 30 ] } ],
+        "Connected": [ "217128" ]
+      },
+      {
+        "Name": "Linear_H1F38S",
+        "Type": "Linear",
+        "Id": "217128",
+        "Parameters": [
+          {
+            "Name": "InFeatures",
+            "Type": "Int32",
+            "Value": 30,
+            "Settable": false,
+            "Description": "这只是一个参数",
+            "ParentID": "217128",
+            "ParentType": "Linear"
+          },
+          {
+            "Name": "OutFeatures",
+            "Type": "Int32",
+            "Value": 10,
+            "Settable": false,
+            "Description": "这只是一个参数",
+            "ParentID": "217128",
+            "ParentType": "Linear"
+          },
+          {
+            "Name": "Bias",
+            "Type": "Boolean",
+            "Value": true,
+            "Settable": false,
+            "Description": "这只是一个参数",
+            "ParentID": "217128",
+            "ParentType": "Linear"
+          }
+        ],
+        "LearnableParameters": 310,
+        "InputDimensions": [ { "Dimensions": [ -10, 30 ] } ],
+        "OutputDimensions": [ { "Dimensions": [ -10, 10 ] } ],
+        "Connected": [ "971514" ]
+      }
+    ]
+  },
+  "Graphs": "U1RORAEfiwgAAAAAAAAKY2BQcGQA4wZ7ZgYGBhVGBgbTqIzMytI8Pb/8lNRivZScnBoUgeCSotLkktIiIDMsNbkkv8i/tKSgtEQl1cjA0sjMLFnXOCnRTNc4JSlFN9HIyFI3KTXRJCUxJck4KTmVBWiFe2lmigCQNtn4T3vJCSXvNcFq53bqTzkKkvNJTSsB0axAt4CcE5JfAOJuBgkBcXhmSkkGSKACiNmA2CM1Mz0DrKMYiDmA2LG0JD84syoV6A8GBi6QkfnJ2f4FJZn5eWAhHqgQECfCBTmBGOgLv9LcpNQiJiDH0ABkpl9ibqowkEb2Znx4eFJpiIsaUJ8JieHkmQcKJjOjRFMjQ/NkXcvElERd49RUA93EpMQ03eRk8zSD1KQ0AwPDFORg2nPR44fb5cO\u002Be8pfRexmfzcTOZh6GVCCaT56MPVQN5h4gdgtNRHkJ0RQGcODSggeVGCfxud6FuQXFlsDtergDynf/JTSHCDtk5mXmlikkmxkbJJkbpmsm5RkYahrbGGZqptkbmKia55oYmmeYphsbG5gjBxCP1rbe25oLnbfOv0dR4CsYyhyCN0D2o4vIVE5hEDqPPOgYVQMCR5uSOJCFoQkL6fMxGIQHVJUCs4YoDAEBTEkGOI9DN2MLYJBykEYbDw0ugGUSSCntQMAAA=="
+}
