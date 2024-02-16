@@ -16,6 +16,9 @@ namespace Zhiyun.Nodes
         public string Name { get; set; }
 
         [ReadOnly(true)]
+        public string Id { get; set; }
+
+        [ReadOnly(true)]
         public string Type { get; set; }
 
         [ReadOnly(true)]

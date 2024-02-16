@@ -6,3 +6,4 @@ global using System.Threading.Tasks;
 
 global using Zhiyun.FlowChart.NodeEditor;
 global using Zhiyun.Winform.Views;
+global using Zhiyun.Winform.Components;

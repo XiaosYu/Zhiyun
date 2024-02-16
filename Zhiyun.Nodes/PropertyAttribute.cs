@@ -9,5 +9,6 @@ namespace Zhiyun.Nodes
     [AttributeUsage(AttributeTargets.Property)]
     public class PropertyAttribute: Attribute
     {
+        public bool Default = true;
     }
 }

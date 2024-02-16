@@ -16,6 +16,8 @@ namespace Zhiyun.Nodes.Structures
         protected virtual void SetOutPortText(string text)
             => SetOptionText(OutputOptions[0], text);
 
+        public abstract void Modify(Dimension dimension);
+
         protected override void OnInitializePort()
         {
             AddOutPort("OUT", false);

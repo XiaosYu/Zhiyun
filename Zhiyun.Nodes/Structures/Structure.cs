@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Zhiyun.Nodes.Structures
 {
-    [STNode("结构")]
+    [STNode("基本结构")]
     public abstract class Structure : NodeBase
     {
         public Structure()

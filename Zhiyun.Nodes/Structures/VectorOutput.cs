@@ -12,7 +12,7 @@ namespace Zhiyun.Nodes.Structures
     {
         private int outNumber;
         [STNodeProperty("输出数量", "")]
-        [Property]
+        [Property(Default = false)]
         public int OutNumber
         {
             get => outNumber;

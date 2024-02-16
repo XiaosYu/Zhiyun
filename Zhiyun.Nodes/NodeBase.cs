@@ -1,8 +1,6 @@
 ﻿using System.Drawing;
 using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
 using Zhiyun.Utilities.Extensions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Zhiyun.Nodes
 {
@@ -10,14 +8,19 @@ namespace Zhiyun.Nodes
     {
         [STNodeProperty("节点名称", "")]
         public string Name { get; set; }
-        public string Id { get; set; } = Random.Shared.RandDigit(6);
+
+        public string Id { get; set; }
 
         protected virtual List<Dimension> GetInputDimensions() => [Dimension.Empty];
         protected virtual List<Dimension> GetOutputDimensions() => [Dimension.Empty];
 
         private readonly Dictionary<string, STNodeControl> controls = [];
 
-        public NodeBase() => Name = $"{GetType().Name}_{Random.Shared.RandString(6)}";
+        public NodeBase()
+        {
+            Name = $"{GetType().Name}_{Random.Shared.RandString(6)}";
+            Id = Random.Shared.RandDigit(6);
+        }
 
         protected virtual void OnInitializePort() { }
         protected virtual void OnInitializeProperty() { }
@@ -67,14 +70,19 @@ namespace Zhiyun.Nodes
                 Parameters = new ParameterDataCollection(GetType()
                                 .GetProperties()
                                 .Where(s => s.GetCustomAttribute<PropertyAttribute>() != null)
-                                .Select(s => new ParameterData()
+                                .Select(s =>
                                 {
-                                    Settable = false,
-                                    Name = s.Name,
-                                    Type = s.PropertyType.Name,
-                                    Value = s.GetValue(this),
-                                    ParentID = Id,
-                                    ParentType = GetType().Name
+                                    var @default = s.GetCustomAttribute<PropertyAttribute>()!.Default;
+                                    return new ParameterData()
+                                    {
+                                        Id = $"{s.Name}_{Random.Shared.RandDigit(6)}",
+                                        Settable = @default,
+                                        Name = s.Name,
+                                        Type = s.PropertyType.Name,
+                                        Value = s.GetValue(this),
+                                        ParentID = Id,
+                                        ParentType = GetType().Name
+                                    };
                                 })
                                 .ToList()),
                 Id = Id,
@@ -134,6 +142,19 @@ namespace Zhiyun.Nodes
 
             }
                 
+        }
+
+        protected override void OnSaveNode(Dictionary<string, byte[]> dic)
+        {
+            dic.Add("Id", Id.ToBytes());
+            base.OnSaveNode(dic);
+        }
+
+        protected override void OnLoadNode(Dictionary<string, byte[]> dic)
+        {
+            var id = Encoding.UTF8.GetString(dic["Id"]);
+            Id = id;
+            base.OnLoadNode(dic);
         }
 
     }

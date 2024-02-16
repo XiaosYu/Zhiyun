@@ -125,8 +125,6 @@ namespace Zhiyun.Nodes.Modules
                 var outDim = Dimension.Create(OutChannels, outWidth, outHeight);
                 SetOutPortText(outDim.ToString(','));
             }
-            else
-                throw new Exception("Dimension Error");
             
         }
 

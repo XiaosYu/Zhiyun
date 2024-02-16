@@ -12,8 +12,9 @@ namespace Zhiyun.Nodes.Structures
     public class VectorInput: Input
     {
         private int featureNumber;
+
         [STNodeProperty("特征数量", "")]
-        [Property]
+        [Property(Default = false)]
         public int FeatureNumber
         {
             get => featureNumber;
@@ -21,6 +22,11 @@ namespace Zhiyun.Nodes.Structures
         }
 
         public override Dimension FeaturesDim => Dimension.Create(FeatureNumber);
+
+        public override void Modify(Dimension dimension)
+        {
+            FeatureNumber = dimension[1];
+        }
 
         public override void OnFlushComponent()
         {

@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using Newtonsoft.Json.Linq;
 
 namespace Zhiyun.Utilities.Extensions
 {
@@ -102,5 +103,17 @@ namespace Zhiyun.Utilities.Extensions
 			}
 			else return null;
 		}
+
+		static public void SetProperty(this object obj, string propertyName, object value) 
+		{
+			var property = obj.GetType().GetProperty(propertyName);
+			property?.SetValue(obj, value);
+		}
+
+		static public object? GetProperty(this object obj, string propertyName)
+		{
+            var property = obj.GetType().GetProperty(propertyName);
+			return property?.GetValue(obj);
+        }
     }
 }

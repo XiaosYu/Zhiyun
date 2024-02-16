@@ -58,7 +58,9 @@ namespace Zhiyun.Winform.Views
 
             if (e.Node is CustomModule node)
             {
-                node.ContextMenuStrip = new CustomModuleContextMenuStrip(node);
+                var contextMenuStrip = new CustomModuleContextMenuStrip(node);
+                node.ContextMenuStrip = contextMenuStrip;
+                node.ContextStripLinker = contextMenuStrip;
             }
             else
             {
@@ -74,7 +76,7 @@ namespace Zhiyun.Winform.Views
 
         private void NodeEditor_NodeRemoved(object sender, STNodeEditorEventArgs e)
         {
-            NodeEditor.Nodes.ToArray().Foreach(s => (s as NodeBase).ChildNodes.Remove(e.Node as NodeBase));
+            NodeEditor.Nodes.ToArray().Foreach(s => (s as NodeBase)!.ChildNodes.Remove((e.Node as NodeBase)!));
         }
 
         private void NodeEditor_OptionConnected(object sender, STNodeEditorOptionEventArgs e)

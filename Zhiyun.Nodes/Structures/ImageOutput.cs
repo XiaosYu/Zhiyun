@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Zhiyun.Nodes.Structures
 {
-    [Name("图片输入")]
-    public class ImageInput: Input
+    [Name("图片输出")]
+    public class ImageOutput: Output
     {
         private int channelNumber;
         [STNodeProperty("通道数量", "")]
@@ -38,19 +38,12 @@ namespace Zhiyun.Nodes.Structures
             set { imageHeight = value; Flush(); }
         }
 
-        public override Dimension FeaturesDim => Dimension.Create(ChannelNumber, ImageWidth, ImageHeight);
-
-        public override void Modify(Dimension dimension)
-        {
-            ChannelNumber = dimension[1];
-            ImageWidth = dimension[2];
-            ImageHeight = dimension[3];
-        }
+        public override Dimension OutDim => Dimension.Create(ChannelNumber, ImageWidth, ImageHeight);
 
         public override void OnFlushComponent()
         {
-            UpdateText("Feature", $"输入图片尺寸:\n[batch×{FeaturesDim.ToString()}]");
-            SetOutPortText(FeaturesDim.ToString(','));
+            UpdateText("Feature", $"输出图片尺寸:\n[batch×{OutDim.ToString()}]");
+            SetInPortText(OutDim.ToString(','));
         }
 
         public override ConnectionData OnSendMessage() => new() { Dimension = Dimension.Create(ChannelNumber, ImageWidth, ImageHeight) };

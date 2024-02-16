@@ -27,33 +27,6 @@ namespace Zhiyun.Nodes
     {
         public List<NodeData> Nodes { set; get; }
 
-        public List<Dimension> Compute(List<Dimension> inputDimensions)
-        {
-            var graphs = Nodes.Select(s => s.Connected).ToList();
-            var inputs = new Dictionary<string, List<string>>();
-            foreach(var graph in graphs)
-            {
-                var index = graphs.IndexOf(graph);
-                graph.ForEach(s =>
-                {
-                    if (inputs.TryGetValue(s, out List<string> value))
-                        value.Add(Nodes[index].Id);
-                });
-            }
-
-            var startNode = Nodes.First(s => s.Type.Contains("Input"));
-            var endNode = Nodes.First(s => s.Type.Contains("Output"));
-
-            var startIndex = Nodes.IndexOf(startNode);
-            var endIndex = Nodes.IndexOf(endNode);
-
-            var loop = true;
-            while(loop)
-            {
-
-            }
-        }
-
         [JsonIgnore]
         public Dimension InputDimension => Nodes.First(s => s.Type.Contains("Input")).OutputDimensions[0];
 
