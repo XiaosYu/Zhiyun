@@ -10,13 +10,10 @@ namespace Zhiyun.Nodes.Modules.Activate
     [STNode("网络模块/激活函数")]
     public abstract class Activate: Module
     {
-        public static List<Dimension> Compute(List<Dimension> inputDimensions, Dictionary<string, int> parameters)
-            => inputDimensions.Select(s => s.Clone()).ToList();
-
         public override int ParametersNumber => 0;
         public Activate() => TitleColor = Color.FromArgb(200, Color.BlueViolet);
 
-        protected override Dimension OutputDim => InputDim;
+        protected override Dimension CalculateOutputDim() => InputDim.Clone();
 
         protected override void OnReceivedMessagePart(ConnectionData data)
         {
@@ -34,7 +31,5 @@ namespace Zhiyun.Nodes.Modules.Activate
             SetInPortText(InputDim);
             SetOutPortText(OutputDim);
         }
-
-        public override ConnectionData OnSendMessage() => new() { Dimension = OutputDim.Clone() };
     }
 }

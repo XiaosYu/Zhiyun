@@ -11,15 +11,12 @@ namespace Zhiyun.Nodes.Operations.Unary
     {
         protected override Dimension CalculateDimensions(Dimension first)
         {
-            var totalShape = first.DimensionWithoutBatch.ValueCount;
-            return Dimension.Create(totalShape);
-        }
-
-        public static List<Dimension> Compute(List<Dimension> inputDimensions, Dictionary<string, int> parameters)
-        {
-            var first = inputDimensions[0];
-            var totalShape = first.DimensionWithoutBatch.ValueCount;
-            return [Dimension.Create(totalShape)];
+            if (!first.OnlyBatch)
+            {
+                var totalShape = first.DimensionWithoutBatch.ValueCount;
+                return Dimension.Create(totalShape);
+            }
+            else return Dimension.Empty;
         }
     }
 }

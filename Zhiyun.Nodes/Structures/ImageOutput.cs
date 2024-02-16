@@ -46,6 +46,18 @@ namespace Zhiyun.Nodes.Structures
             SetInPortText(OutDim.ToString(','));
         }
 
+        public override void OnReceivedMessage(ConnectionData data)
+        {
+            if (data.Dimension.IsImage)
+            {
+                channelNumber = data.Dimension[1];
+                imageWidth = data.Dimension[2];
+                imageHeight = data.Dimension[3];
+                Flush();
+            }
+            // else throw new Exception("Dimension Error");
+        }
+
         public override ConnectionData OnSendMessage() => new() { Dimension = Dimension.Create(ChannelNumber, ImageWidth, ImageHeight) };
 
         protected override void OnInitializeProperty()

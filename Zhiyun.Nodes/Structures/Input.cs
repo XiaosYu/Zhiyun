@@ -10,8 +10,6 @@ namespace Zhiyun.Nodes.Structures
     {
         public abstract Dimension FeaturesDim { get; }
 
-        protected override List<Dimension> GetOutputDimensions() => [FeaturesDim];
-
         protected virtual STNodeOption OutPort => OutputOptions[0];
         protected virtual void SetOutPortText(string text)
             => SetOptionText(OutputOptions[0], text);

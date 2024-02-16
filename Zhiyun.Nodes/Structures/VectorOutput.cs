@@ -31,7 +31,7 @@ namespace Zhiyun.Nodes.Structures
         {
             if(data.Dimension.IsVector)
                 OutNumber = data.Dimension[1];
-            else throw new Exception("Dimension Error");
+            //else throw new Exception("Dimension Error");
         }
 
         protected override void OnInitializeProperty()

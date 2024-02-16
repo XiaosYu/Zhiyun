@@ -32,7 +32,8 @@ namespace Zhiyun.Nodes.Modules
         [Property]
         public bool Bias { set; get; } = true;
 
-        protected override Dimension OutputDim => InputDim.Clone().SetDimension(1, OutFeatures);
+
+        protected override Dimension CalculateOutputDim() => InputDim.Clone().SetDimension(1, OutFeatures);
 
         public override void OnFlushComponent()
         {
@@ -45,19 +46,9 @@ namespace Zhiyun.Nodes.Modules
         {
             if (data.Dimension.IsVector)
                 InFeatures = data.Dimension[1];
-            else
-                throw new Exception("Dimension Error");
+            //else throw new Exception("Dimension Error");
             
         }
-
-        public static List<Dimension> Compute(List<Dimension> inputDimensions, Dictionary<string, int> parameters)
-        {
-            var inputFeature = inputDimensions[0];
-            var outFeature = inputFeature.Clone().SetDimension(1, parameters["OutFeatures"]);
-            return [outFeature];
-        }
-
-        public override ConnectionData OnSendMessage() => new() { Dimension = Dimension.Create(OutFeatures) };
 
         protected override void OnInitializeProperty()
         {

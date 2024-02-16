@@ -54,6 +54,7 @@ namespace Zhiyun.Winform.Services
                 return false;
             }
 
+           
             try
             {
                 var project = JsonConvert.DeserializeObject<Project>(await File.ReadAllTextAsync(projectPath)) ?? throw new Exception("项目文件损坏");
@@ -65,6 +66,7 @@ namespace Zhiyun.Winform.Services
                 Notification.Error("在载入时遇到错误", ex.Message);
                 return false;
             }
+
 
         }
     }

@@ -11,7 +11,7 @@ namespace Zhiyun.Nodes.Operations.Binary
     {
         protected override bool CanForward()
         {
-            if (Number1Dimension == null || Number2Dimension == null)
+            if (Number1Dimension == null || Number2Dimension == null || Number1Dimension.OnlyBatch || Number2Dimension.OnlyBatch)
                 return false;
             for (int i = 0; i < Number1Dimension.DimensionsCount; ++i)
             {

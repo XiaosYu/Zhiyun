@@ -9,10 +9,9 @@ namespace Zhiyun.Nodes.Modules
         public abstract int ParametersNumber { get; }
 
         protected Dimension InputDim { get; set; } = Dimension.Create();
-        protected abstract Dimension OutputDim { get; }
+        protected Dimension OutputDim => InputDim.OnlyBatch ? Dimension.Create() : CalculateOutputDim();
 
-        protected override List<Dimension> GetInputDimensions() => [InputDim];
-        protected override List<Dimension> GetOutputDimensions() => [OutputDim];
+        protected abstract Dimension CalculateOutputDim();
 
         public Module()
         {
@@ -41,6 +40,11 @@ namespace Zhiyun.Nodes.Modules
             InputDim = data.Dimension;
             OnReceivedMessagePart(data);
         }
+
+        public override ConnectionData OnSendMessage() => new()
+        {
+            Dimension = OutputDim.Clone()
+        };
 
 
     }

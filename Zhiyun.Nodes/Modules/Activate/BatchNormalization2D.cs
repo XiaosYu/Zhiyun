@@ -12,6 +12,16 @@ namespace Zhiyun.Nodes.Modules.Activate
     {
         [STNodeProperty("特征通道数", "")]
         [Property]
-        public int FeatureNumber { get; set; }  
+        public int FeatureNumber { get; set; }
+
+        protected override void OnReceivedMessagePart(ConnectionData data)
+        {
+            if(data.Dimension.IsImage)
+            {
+                FeatureNumber = data.Dimension[1];
+            }
+
+            base.OnReceivedMessagePart(data);
+        }
     }
 }

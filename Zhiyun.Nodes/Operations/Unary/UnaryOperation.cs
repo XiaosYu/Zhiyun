@@ -21,9 +21,7 @@ namespace Zhiyun.Nodes.Operations.Unary
             AddOutPort("OUT", false);
         }
 
-        protected override List<Dimension> GetInputDimensions() => [NumberDimension];
-        protected override List<Dimension> GetOutputDimensions() => [CalculateDimensions(NumberDimension)];
-
+     
         protected STNodeOption NumberOption => InputOptions[0];
         protected STNodeOption OutPortOptiont => OutputOptions[0];
 

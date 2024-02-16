@@ -70,36 +70,22 @@ namespace Zhiyun.Nodes.Modules
         [Property]
         public bool Bias { set; get; } = true;
 
-        public static List<Dimension> Compute(List<Dimension> inputDimensions, Dictionary<string, int> parameters)
-        {
-            var inputImage = inputDimensions[0];
-            var imageChannels = inputImage[1];
-            var imageWidth = inputImage[2];
-            var imageHeight = inputImage[3];
 
-            var outWidth = (imageWidth - parameters["KernelWidth"] + 2 * parameters["Padding"]) / parameters["Stride"] + 1;
-            var outHeight = (imageHeight - parameters["KernelHeight"] + 2 * parameters["Padding"]) / parameters["Stride"] + 1;
-            var outDim = Dimension.Create(parameters["OutChannels"], outWidth, outHeight);
-            return [outDim];
-        }
-
-
-        protected override Dimension OutputDim => CalculateDimension(InputDim);
 
         public override void OnFlushComponent()
         {
             if(InputDim != null && !InputDim.OnlyBatch)
             {
-                SetOutPortText(CalculateDimension(OutputDim).ToString(','));
+                SetOutPortText(OutputDim.ToString(','));
                 SetInPortText(InputDim.ToString(','));
             }
             
             UpdateText("Feature", $"卷积通道数:{InChannels},{OutChannels}\n卷积核尺寸:{KernelWidth}×{KernelHeight}");
         }
 
-        private Dimension CalculateDimension(Dimension input)
+        protected override Dimension CalculateOutputDim()
         {
-            var inputImage = input;
+            var inputImage = InputDim;
             var imageChannels = inputImage[1];
             var imageWidth = inputImage[2];
             var imageHeight = inputImage[3];
@@ -127,9 +113,6 @@ namespace Zhiyun.Nodes.Modules
             }
             
         }
-
-
-        public override ConnectionData OnSendMessage() => InputDim.OnlyBatch ? new() { Dimension = Dimension.Create() }: new () { Dimension = OutputDim.Clone() };
 
         protected override void OnInitializeProperty()
         {

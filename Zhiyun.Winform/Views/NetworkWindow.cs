@@ -41,6 +41,7 @@ namespace Zhiyun.Winform.Views
 
             NodeEditor.OptionConnected += NodeEditor_OptionConnected;
             NodeEditor.NodeAdded += NodeEditor_NodeAdded;
+            
         }
 
         private void NodeEditor_NodeAdded(object sender, STNodeEditorEventArgs e)
@@ -49,11 +50,13 @@ namespace Zhiyun.Winform.Views
             {
                 Notification.Error("添加节点错误", "已经有一个输出节点，请勿重复添加");
                 NodeEditor.Nodes.Remove(e.Node);
+                return;
             }
             else if (NodeEditor.Nodes.ToArray().Count(s => s is Input) == 2 && e.Node is Input)
             {
                 Notification.Error("添加节点错误", "已经有一个输入节点，请勿重复添加");
                 NodeEditor.Nodes.Remove(e.Node);
+                return;
             }
 
             if (e.Node is CustomModule node)
@@ -62,21 +65,18 @@ namespace Zhiyun.Winform.Views
                 node.ContextMenuStrip = contextMenuStrip;
                 node.ContextStripLinker = contextMenuStrip;
             }
-            else
-            {
-                e.Node.ContextMenuStrip = new NodeContextMenuStrip()
-                {
-                    OnClickDelete = () =>
-                    {
-                        NodeEditor.RemoveSelectedNode(e.Node);
-                    }
-                };
-            }
-        }
+            else e.Node.ContextMenuStrip = new NodeContextMenuStrip();
 
-        private void NodeEditor_NodeRemoved(object sender, STNodeEditorEventArgs e)
-        {
-            NodeEditor.Nodes.ToArray().Foreach(s => (s as NodeBase)!.ChildNodes.Remove((e.Node as NodeBase)!));
+            e.Node.ContextMenuStrip = new NodeContextMenuStrip()
+            {
+                OnClickDelete = () =>
+                {
+                    NodeEditor.Nodes.Remove(e.Node);
+                    NodeEditor.Nodes.ToArray().Foreach(s => (s as NodeBase)!.ChildNodes.Remove((e.Node as NodeBase)!));
+                }
+            };
+
+          
         }
 
         private void NodeEditor_OptionConnected(object sender, STNodeEditorOptionEventArgs e)

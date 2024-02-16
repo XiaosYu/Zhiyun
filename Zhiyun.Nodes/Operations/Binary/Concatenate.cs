@@ -46,15 +46,6 @@ namespace Zhiyun.Nodes.Operations.Binary
             return resulDim;
         }
 
-        public static List<Dimension> Compute(List<Dimension> inputDimensions, Dictionary<string, int> parameters)
-        {
-            var first = inputDimensions[0];
-            var second = inputDimensions[1];
-            var resulDim = first.Clone();
-            resulDim[parameters["ConnectedDim"]] += second[parameters["ConnectedDim"]];
-            return [resulDim];
-        }
-
         protected override void OnInitializeProperty()
         {
             base.OnInitializeProperty();

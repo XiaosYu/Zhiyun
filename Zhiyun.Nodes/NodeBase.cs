@@ -11,9 +11,6 @@ namespace Zhiyun.Nodes
 
         public string Id { get; set; }
 
-        protected virtual List<Dimension> GetInputDimensions() => [Dimension.Empty];
-        protected virtual List<Dimension> GetOutputDimensions() => [Dimension.Empty];
-
         private readonly Dictionary<string, STNodeControl> controls = [];
 
         public NodeBase()
@@ -75,7 +72,7 @@ namespace Zhiyun.Nodes
                                     var @default = s.GetCustomAttribute<PropertyAttribute>()!.Default;
                                     return new ParameterData()
                                     {
-                                        Id = $"{s.Name}_{Random.Shared.RandDigit(6)}",
+                                        Id = $"{Random.Shared.RandLower(1)}{Random.Shared.RandString(5)}",
                                         Settable = @default,
                                         Name = s.Name,
                                         Type = s.PropertyType.Name,
@@ -87,8 +84,6 @@ namespace Zhiyun.Nodes
                                 .ToList()),
                 Id = Id,
                 Connected = ChildNodes.Select(s => s.Id).ToList(),
-                InputDimensions = GetInputDimensions(),
-                OutputDimensions = GetOutputDimensions(),
                 LearnableParameters = GetType().GetProperty("ParametersNumber") != null ? (int)GetType().GetProperty("ParametersNumber")!.GetValue(this)! : 0
             };
         }
@@ -103,6 +98,7 @@ namespace Zhiyun.Nodes
 
         public virtual void Flush()
         {
+           
             OnFlushComponent();
             if(CanForward())
                 foreach (STNodeOption option in OutputOptions)
@@ -143,6 +139,8 @@ namespace Zhiyun.Nodes
             }
                 
         }
+
+
 
         protected override void OnSaveNode(Dictionary<string, byte[]> dic)
         {

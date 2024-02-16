@@ -49,9 +49,16 @@ namespace Zhiyun.Nodes.Modules
         
         public override int ParametersNumber => ContextStripLinker!.Modification.LearnableParameters;
 
-        protected override List<Dimension> GetInputDimensions() => [InputDim];
-        protected override List<Dimension> GetOutputDimensions() => [OutputDim];
-        protected override Dimension OutputDim => ContextStripLinker != null ? ContextStripLinker.Modification.OutputDimension : Dimension.Create();
+        protected override Dimension CalculateOutputDim()
+        {
+            if(ContextStripLinker != null)
+            {
+                var outNode = ContextStripLinker.FindNode(s => s is Output);
+                if (outNode != null && outNode is Output output)
+                    return output.OutDim;
+            }
+            return Dimension.Empty;
+        }
 
         protected override void OnInitializeProperty()
         {
@@ -66,7 +73,7 @@ namespace Zhiyun.Nodes.Modules
                     "Int32" => s.Value.ToString()!.ToInt32(),
                     "Boolean" => s.Value.ToString()!.ToBoolean(),
                     "String" => s.Value.ToString()!,
-                    _ => throw new Exception("模块解析出错")
+                    _ => throw new Exception($"模块解析出错,在初始化自定义模块参数的时候，无法解析将参数字符串{s.Type}转换为对应的Type类型")
                 });
             });
 
@@ -105,7 +112,6 @@ namespace Zhiyun.Nodes.Modules
             Flush();
         }
 
-        public override ConnectionData OnSendMessage() => new() { Dimension = OutputDim.Clone() };
 
 
 

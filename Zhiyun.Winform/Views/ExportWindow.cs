@@ -35,14 +35,14 @@ namespace Zhiyun.Winform.Views
             await Task.Delay(500);
 
             var inputNode = totalNodes.First(s => s.Type.Contains("Input"));
-            if (inputNode.OutputDimensions[0] is Dimension featuresDim)
+            if (inputNode["OutDim"] is Dimension featuresDim)
             {
                 VerfiyMessageList.Items.Add($"输入张量形状:[batch_size,{featuresDim.ToString(',')}]");
                 await Task.Delay(500);
             }
 
             var outputNode = totalNodes.First(s => s.Type.Contains("Output"));
-            if (outputNode.InputDimensions[0] is Dimension outDim)
+            if (outputNode["FeaturesDim"] is Dimension outDim)
             {
                 VerfiyMessageList.Items.Add($"输出张量形状:[batch_size,{outDim.ToString(',')}]");
                 await Task.Delay(500);
@@ -72,19 +72,6 @@ namespace Zhiyun.Winform.Views
             File.WriteAllText(Path.Combine("Models", "data.json"), ModuleMessage.ToJson());
         }
 
-        private class MyContractResolver : DefaultContractResolver
-        {
-            protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-            {
-                JsonProperty property = base.CreateProperty(member, memberSerialization);
-
-                if (property.Ignored)
-                {
-                    property.ShouldSerialize = instance => false;
-                }
-
-                return property;
-            }
-        }
+       
     }
 }

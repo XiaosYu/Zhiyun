@@ -16,11 +16,11 @@ namespace Zhiyun.Nodes
         public string Id { set; get; }
         public ParameterDataCollection Parameters { set; get; }
         public int LearnableParameters { get; set; }
-
-        public List<Dimension> InputDimensions { set; get; }
-        public List<Dimension> OutputDimensions { set; get; }
-
         public List<string> Connected { set; get; }
+        public object this[string parameterName]
+        {
+            get => Parameters.FirstOrDefault(s => s.Name == parameterName);
+        }
     }
 
     public class MonolithicNode
@@ -28,13 +28,30 @@ namespace Zhiyun.Nodes
         public List<NodeData> Nodes { set; get; }
 
         [JsonIgnore]
-        public Dimension InputDimension => Nodes.First(s => s.Type.Contains("Input")).OutputDimensions[0];
+        public Dimension InputDimension
+        {
+            get
+            {
+                var output = Nodes.FirstOrDefault(s => s.Type.Contains("Input"));
+                if (output != null) return output.Parameters["FeatureDim"].Value as Dimension;
+                else return Dimension.Create();
+            }
+        }
 
         [JsonIgnore]
-        public Dimension OutputDimension => Nodes.First(s => s.Type.Contains("Output")).InputDimensions[0];
+        public Dimension OutputDimension
+        {
+            get
+            {
+                var output = Nodes.FirstOrDefault(s => s.Type.Contains("Output"));
+                if (output != null) return output.Parameters["OutDim"].Value as Dimension;
+                else return Dimension.Create();
+            }
+        }
 
         [JsonIgnore]
         public int LearnableParameters => Nodes.Sum(s => s.LearnableParameters);
+
         [JsonIgnore]
         public List<ParameterData> SettableParameters 
         {   get

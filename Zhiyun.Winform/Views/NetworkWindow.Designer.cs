@@ -58,7 +58,6 @@
             NodeEditor.Size = new Size(1271, 774);
             NodeEditor.TabIndex = 0;
             NodeEditor.Text = "NodeEditor";
-            NodeEditor.NodeRemoved += NodeEditor_NodeRemoved;
             // 
             // NodePropertyGrid
             // 

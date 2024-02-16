@@ -15,9 +15,6 @@ namespace Zhiyun.Nodes.Operations.Binary
             TitleColor = Color.FromArgb(200, Color.YellowGreen);
         }
 
-        protected override List<Dimension> GetInputDimensions() => [Number1Dimension, Number2Dimension];
-        protected override List<Dimension> GetOutputDimensions() => [CalculateDimensions(Number1Dimension, Number2Dimension)];
-
         protected override void OnInitializePort()
         {
             AddInPort("IN1", true);

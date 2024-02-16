@@ -42,9 +42,13 @@ namespace Zhiyun.Nodes.Structures
 
         public override void Modify(Dimension dimension)
         {
-            ChannelNumber = dimension[1];
-            ImageWidth = dimension[2];
-            ImageHeight = dimension[3];
+            if(dimension.IsImage)
+            {
+                ChannelNumber = dimension[1];
+                ImageWidth = dimension[2];
+                ImageHeight = dimension[3];
+            }
+            
         }
 
         public override void OnFlushComponent()
