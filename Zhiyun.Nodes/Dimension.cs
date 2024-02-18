@@ -20,10 +20,13 @@
             set => Dimensions[index] = value;
         }
 
+        [JsonIgnore]
+        public DimensionType DimensionType => (DimensionType)Dimensions.Count;
+
         public Dimension Clone() => new(Dimensions);
 
         [JsonPropertyName(nameof(Dimensions))]
-        public List<int> Dimensions { get; set; }
+        public List<int> Dimensions { get; set; } = [];
 
         [JsonIgnore]
         public int DimensionsCount => Dimensions.Count;
@@ -38,6 +41,7 @@
 
         [JsonIgnore]
         public int ValueCount => Dimensions.Where(s=>s != Batch).Aggregate((product, next) => product * next);
+
 
         public Dimension SetDimension(int dimension, int value)
         {
@@ -60,5 +64,14 @@
 
        
             
+    }
+
+    public enum DimensionType
+    {
+        OnlyBatch = 1,
+        Vector = 2,    //[batch, feature]
+        Image = 3,    //[batch, channels, width, height]
+        Sequence = 4,    //[batch, seq-length, feature]
+        SequenceImage = 5,    //[batch, seq-length, channels, width, height]
     }
 }

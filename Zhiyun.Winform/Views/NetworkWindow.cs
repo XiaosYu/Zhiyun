@@ -63,7 +63,6 @@ namespace Zhiyun.Winform.Views
             {
                 var contextMenuStrip = new CustomModuleContextMenuStrip(node);
                 node.ContextMenuStrip = contextMenuStrip;
-                node.ContextStripLinker = contextMenuStrip;
             }
             else e.Node.ContextMenuStrip = new NodeContextMenuStrip();
 

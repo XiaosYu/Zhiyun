@@ -22,6 +22,15 @@ namespace Zhiyun.Utilities.Extensions
         static public byte ToByte(this string str)
             => Convert.ToByte(str);
 
+        static public Type ToType(this string str)
+            => str switch
+            {
+                "Int32" => typeof(int),
+                "String" => typeof(string),
+                "Boolean" => typeof(bool),
+                _ => throw new Exception($"无法将类型字符串{str}转换为对应类型")
+            };
+
         /// <summary>
         /// 将字符串转为double
         /// </summary>

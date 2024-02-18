@@ -44,7 +44,7 @@ namespace Zhiyun.Nodes.Modules
 
         protected override void OnReceivedMessagePart(ConnectionData data)
         {
-            if (data.Dimension.IsVector)
+            if (data.Dimension.DimensionType == DimensionType.Vector)
                 InFeatures = data.Dimension[1];
             //else throw new Exception("Dimension Error");
             

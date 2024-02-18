@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Zhiyun.Utilities\Zhiyun.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

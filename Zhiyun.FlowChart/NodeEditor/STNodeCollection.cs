@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Zhiyun.FlowChart.NodeEditor
 {
-    public class STNodeCollection : IList, ICollection, IEnumerable
+    public class STNodeCollection : IList, ICollection, IEnumerable, IEnumerable<STNode>
     {
         private int _Count;
         public int Count { get { return _Count; } }
@@ -248,6 +248,14 @@ namespace Zhiyun.FlowChart.NodeEditor
             for (int i = 0; i < nodes.Length; i++)
                 nodes[i] = m_nodes[i];
             return nodes;
+        }
+
+        IEnumerator<STNode> IEnumerable<STNode>.GetEnumerator()
+        {
+            foreach(var node in this)
+            {
+                yield return (node as STNode)!;
+            }
         }
     }
 }

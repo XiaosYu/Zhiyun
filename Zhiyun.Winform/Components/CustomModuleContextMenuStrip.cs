@@ -4,18 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zhiyun.Nodes;
-using Zhiyun.Nodes.Interfaces;
 using Zhiyun.Nodes.Modules;
 using Zhiyun.Utilities.Extensions;
 
 namespace Zhiyun.Winform.Components
 {
-    public class CustomModuleContextMenuStrip: NodeContextMenuStrip, ICustomModuleContextStripLinker
+    public class CustomModuleContextMenuStrip: NodeContextMenuStrip
     {
         public CustomModuleContextMenuStrip(CustomModule customModule) 
         {
             this.customModule = customModule;
-            this.showDetailWindow = new ShowDetailWindow(customModule.ModuleMessage.Graphs.FromBase64String());
 
             var showDetail = new ToolStripMenuItem
             {
@@ -28,19 +26,13 @@ namespace Zhiyun.Winform.Components
             Items.Add(showDetail);
         }
 
-        private CustomModule customModule;
-
-        private ShowDetailWindow showDetailWindow;
-
-        public MonolithicNode Modification => showDetailWindow.Current;
-
-        public NodeBase FindNode(Func<NodeBase, bool> match) => showDetailWindow.FindNode(match);
+        private readonly CustomModule customModule;
 
         private void ShowDetail_Click(object? sender, EventArgs e)
         {
+            var showDetailWindow = new ShowDetailWindow(customModule.GetBytes());
             showDetailWindow.ShowDialog();
         }
 
-        public IEnumerable<NodeBase> ListAll() => showDetailWindow.ListAll();
     }
 }

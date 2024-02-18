@@ -17,6 +17,14 @@ namespace Zhiyun.Nodes
         {
             Name = $"{GetType().Name}_{Random.Shared.RandString(6)}";
             Id = Random.Shared.RandDigit(6);
+            var attribute = GetType().GetCustomAttribute<NameAttribute>();
+            Title = attribute != null ? attribute.Title : GetType().Name;
+
+            OnInitializePort();
+            OnInitializeProperty();
+            OnBindingPort();
+
+            Flush();
         }
 
         protected virtual void OnInitializePort() { }
@@ -37,20 +45,6 @@ namespace Zhiyun.Nodes
 
                     }
                 });
-        }
-
-        protected override void OnCreate()
-        {
-            var attribute = GetType().GetCustomAttribute<NameAttribute>();
-            Title = attribute != null ? attribute.Title : GetType().Name;
-
-            OnInitializePort();
-            OnInitializeProperty();
-            OnBindingPort();
-
-            Flush();
-
-            base.OnCreate();
         }
 
         public List<NodeBase> ChildNodes { get; } = [];
@@ -98,7 +92,6 @@ namespace Zhiyun.Nodes
 
         public virtual void Flush()
         {
-           
             OnFlushComponent();
             if(CanForward())
                 foreach (STNodeOption option in OutputOptions)
@@ -156,4 +149,5 @@ namespace Zhiyun.Nodes
         }
 
     }
+
 }

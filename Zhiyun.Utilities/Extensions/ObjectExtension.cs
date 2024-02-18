@@ -115,5 +115,11 @@ namespace Zhiyun.Utilities.Extensions
             var property = obj.GetType().GetProperty(propertyName);
 			return property?.GetValue(obj);
         }
+
+		static public void SetField(this object obj, string fieldName, object value)
+		{
+			var field = obj.GetType().GetField(fieldName);
+			field?.SetValue(obj, value);
+		}
     }
 }

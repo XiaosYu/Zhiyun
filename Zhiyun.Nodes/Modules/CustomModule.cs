@@ -8,7 +8,8 @@ using System.Reflection.Emit;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using Zhiyun.Nodes.Interfaces;
+using Zhiyun.Nodes;
+using Zhiyun.Nodes.Services;
 using Zhiyun.Utilities.Extensions;
 
 namespace Zhiyun.Nodes.Modules
@@ -20,10 +21,10 @@ namespace Zhiyun.Nodes.Modules
             TitleColor = Color.FromArgb(200, Color.Pink);
         }
 
-        public ICustomModuleContextStripLinker? ContextStripLinker { get; set; }
+        private NodeSandbox Sandbox;
+        private List<ParameterData> SettableParameters;
 
-        public ModuleMessage ModuleMessage => ModuleMessageText.ToObject<ModuleMessage>()!;
-
+        public byte[] GetBytes() => Sandbox.GetCanvasData();
 
         public abstract string ModuleMessageText { get; }
 
@@ -37,38 +38,33 @@ namespace Zhiyun.Nodes.Modules
                 {
                     var value = s.GetValue(this)!;
                     var propertyId = s.Name;
-                    var parameter = ModuleMessage.Monolithic.SettableParameters.First(s=>s.Id == propertyId);
+                    var parameter = SettableParameters.First(s=>s.Id == propertyId);
 
-                    var targetNode = ContextStripLinker?.FindNode(s => s.Id == parameter.ParentID);
-                    targetNode?.SetProperty(parameter.Name, value);
+                    Sandbox.SetNodeProperty(parameter.ParentID, parameter.Name, value);
                 });
 
             SetInPortText(InputDim);
             SetOutPortText(OutputDim);
         }
-        
-        public override int ParametersNumber => ContextStripLinker!.Modification.LearnableParameters;
+
+        public override int ParametersNumber => (int)Sandbox.GetParametersNumber();
 
         protected override Dimension CalculateOutputDim()
         {
-            if(ContextStripLinker != null)
-            {
-                var outNode = ContextStripLinker.FindNode(s => s is Output);
-                if (outNode != null && outNode is Output output)
-                    return output.OutDim;
-            }
-            return Dimension.Empty;
+            if (InputDim.OnlyBatch) return Dimension.Empty;
+            return Sandbox.Input(InputDim);
         }
 
         protected override void OnInitializeProperty()
         {
-            ModuleMessage.Monolithic.SettableParameters.ForEach(s =>
+            var moduleMessage = ModuleMessageText.ToObject<ModuleMessage>()!;
+            Sandbox = new(moduleMessage.Graphs.FromBase64String());
+            SettableParameters = moduleMessage.Monolithic.SettableParameters;
+
+            SettableParameters.ForEach(s =>
             {
-                var a = this;
-                var property = GetType().GetRuntimeProperty(s.Id);
-
-
-                property?.SetValue(this, s.Type switch
+                var field = GetType().GetField(s.Id.ToLower());
+                field?.SetValue(this, s.Type switch
                 {
                     "Int32" => s.Value.ToString()!.ToInt32(),
                     "Boolean" => s.Value.ToString()!.ToBoolean(),
@@ -81,36 +77,24 @@ namespace Zhiyun.Nodes.Modules
 
         protected override void OnReceivedMessagePart(ConnectionData data)
         {
-            //当接收到新的输入进行重新计算输入与输出维度
-            if(ContextStripLinker != null)
-            {
-                var inputNode = ContextStripLinker.FindNode(s => s.GetType().Name.Contains("Input"));
-                if(inputNode is Input input)
-                {
-                    input.Modify(InputDim);
-                    var outNode = ContextStripLinker.FindNode(s => s.GetType().Name.Contains("Output"));
-                    if (outNode is Output output)
-                    {
-                        //更新参数，使参数对其
-                        GetType()
-                            .GetProperties()
-                            .Where(s => s.GetCustomAttribute<PropertyAttribute>() != null)
-                            .Foreach(s =>
-                            {
-                                var value = s.GetValue(this)!;
-                                var propertyId = s.Name;
-                                var parameter = ModuleMessage.Monolithic.SettableParameters.First(s => s.Id == propertyId);
+            Sandbox.Input(data.Dimension);
+            //更新参数，使参数对其
+            GetType()
+               .GetProperties()
+               .Where(s => s.GetCustomAttribute<PropertyAttribute>() != null)
+               .Foreach(s =>
+               {
+                   var propertyName = s.Name;
+                   var field = GetType().GetField(s.Name.ToLower());
 
-                                var targetNode = ContextStripLinker?.FindNode(s => s.Id == parameter.ParentID);
-                                var pv = targetNode?.GetProperty(parameter.Name);
+                   var parameter = SettableParameters.First(s => s.Id == propertyName);
 
-                                s.SetValue(this, pv);
-                            });
-                    }
-                }
-            }
-            Flush();
+                   var nodeValue = Sandbox.GetNodeProperty(parameter.ParentID, parameter.Name);
+                   field?.SetValue(this, nodeValue);
+               });
         }
+
+
 
 
 
@@ -118,15 +102,6 @@ namespace Zhiyun.Nodes.Modules
 
         public static Type CreateCustomModuleType(ModuleMessage module)
         {
-            static Type ConvertType(string typeName)
-                => typeName switch
-                {
-                    "Int32" => typeof(int),
-                    "Boolean" => typeof(bool),
-                    "String" => typeof(string),
-                    _ => (Type)Type.Missing,
-                };
-
             AssemblyName assemblyName = new("DynamicAssembly");
             AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("DynamicModule");
@@ -153,7 +128,7 @@ namespace Zhiyun.Nodes.Modules
             var settableParameters = monolithicNode.SettableParameters;
             foreach(var settableParameter in settableParameters)
             {
-                var parameterType = ConvertType(settableParameter.Type)!;
+                var parameterType = settableParameter.Type.ToType();
                 FieldBuilder fieldBuilder = typeBuilder.DefineField(settableParameter.Id.ToLower(), parameterType, FieldAttributes.Public);
                 PropertyBuilder propertyBuilder = typeBuilder.DefineProperty(settableParameter.Id, PropertyAttributes.None, parameterType, null);
 
