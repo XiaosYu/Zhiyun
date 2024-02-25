@@ -1818,7 +1818,7 @@ namespace Zhiyun.FlowChart.NodeEditor
         /// <param name="s">数据流对象</param>
         public void SaveCanvas(Stream s) {
             Dictionary<STNodeOption, long> dic = new Dictionary<STNodeOption, long>();
-            s.Write(new byte[] { (byte)'S', (byte)'T', (byte)'N', (byte)'D' }, 0, 4); //file head
+            s.Write("STND"u8.ToArray(), 0, 4); //file head
             s.WriteByte(1);                                                           //ver
             using (GZipStream gs = new GZipStream(s, CompressionMode.Compress)) {
                 gs.Write(BitConverter.GetBytes(this._CanvasOffsetX), 0, 4);
@@ -1895,6 +1895,11 @@ namespace Zhiyun.FlowChart.NodeEditor
                 return true;
             }
             else return false;
+        }
+
+        public void LoadTypes(IEnumerable<Type> types)
+        {
+            foreach (var type in types) LoadType(type);
         }
 
         /// <summary>

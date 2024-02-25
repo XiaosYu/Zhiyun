@@ -10,7 +10,7 @@ namespace Zhiyun.Utilities.IO.Compression
     {
         public MultipartZipContext() { }
 
-        private Dictionary<string, List<(string, string)>> _entities { get; } = new Dictionary<string, List<(string, string)>>();
+        private Dictionary<string, List<(string, string)>> _entities { get; } = [];
 
         public void Add(string block, string path, string id)
         {
@@ -18,10 +18,10 @@ namespace Zhiyun.Utilities.IO.Compression
             if (_entities.ContainsKey(block)) _entities[block].Add((path, id));
             else
             {
-                _entities.Add(block, new List<(string, string)>()
-                {
+                _entities.Add(block,
+                [
                     (path, id)
-                });
+                ]);
             }
         }
         public void Add(string block, string path)
@@ -31,10 +31,10 @@ namespace Zhiyun.Utilities.IO.Compression
             if (_entities.ContainsKey(block)) _entities[block].Add((path, id));
             else
             {
-                _entities.Add(block, new List<(string, string)>()
-                {
+                _entities.Add(block,
+                [
                     (path, id)
-                });
+                ]);
             }
         }
         public void AddRange(string block, IEnumerable<(string, string)> datas)
@@ -85,7 +85,7 @@ namespace Zhiyun.Utilities.IO.Compression
                 foreach (var entity in item.Value)
                 {
                     var p = $"{name}\\{item.Key}\\{entity.Item2}";
-                    ZipEntry entry = new ZipEntry(p);
+                    ZipEntry entry = new(p);
                     stream.PutNextEntry(entry);
                     using var fs = File.OpenRead(entity.Item1);
                     int len = 0;
@@ -100,5 +100,31 @@ namespace Zhiyun.Utilities.IO.Compression
             stream.Close();
         }
 
+        public override async Task CompressAsync(string path)
+        {
+            using var stream = new ZipOutputStream(File.Create(path));
+            stream.Password = Password;
+            stream.SetLevel(ZipLevel);
+            var name = Path.GetFileNameWithoutExtension(path);
+            var buffer = new byte[BufferSize];
+            foreach (var item in _entities)
+            {
+                foreach (var entity in item.Value)
+                {
+                    var p = $"{name}\\{item.Key}\\{entity.Item2}";
+                    ZipEntry entry = new(p);
+                    await stream.PutNextEntryAsync(entry);
+                    using var fs = File.OpenRead(entity.Item1);
+                    int len = 0;
+                    do
+                    {
+                        len = await fs.ReadAsync(buffer.AsMemory(0, BufferSize));
+                        await stream.WriteAsync(buffer.AsMemory(0, len));
+                    } while (len > 0);
+                }
+            }
+            stream.Finish();
+            stream.Close();
+        }
     }
 }

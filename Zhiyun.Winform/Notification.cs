@@ -12,7 +12,7 @@ namespace Zhiyun.Winform
             => MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         public static DialogResult Error(string title, string content)
-            => MessageBox.Show(content, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            => MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         public static DialogResult Confirm(string title, string content)
             => MessageBox.Show(content, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);

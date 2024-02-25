@@ -27,7 +27,5 @@ namespace Zhiyun.Winform.Components
 
         public Action OnClickDelete { get; set; } = () => { };
 
-     
-
     }
 }

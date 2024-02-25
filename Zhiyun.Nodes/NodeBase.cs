@@ -52,7 +52,7 @@ namespace Zhiyun.Nodes
         public void AddInPort(string name, bool single) => InputOptions.Add(name, typeof(ConnectionData), single);
         public void AddOutPort(string name, bool single) => OutputOptions.Add(name, typeof(ConnectionData), single);
 
-        public NodeData GetNodeData()
+        public virtual NodeData GetNodeData()
         {
             return new NodeData
             {

@@ -16,7 +16,7 @@ namespace Zhiyun.Utilities.IO.Compression
         public abstract void Compress(string path);
         public virtual Task CompressAsync(string path)
         {
-            Task task = new Task(() => Compress(path));
+            Task task = new(() => Compress(path));
             task.Start();
             return task;
         }

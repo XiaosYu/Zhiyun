@@ -10,12 +10,25 @@ namespace Zhiyun.Nodes.Services
 {
     public class NodeSandbox: STNodeControl
     {
-        private readonly STNodeEditor NodeEditor = new();
+        private readonly STNodeEditor NodeEditor = new()
+        {
+            AllowDrop = true,
+            BackColor = Color.FromArgb(34, 34, 34),
+            Curvature = 0.3F,
+            Location = new Point(230, 12),
+            LocationBackColor = Color.FromArgb(120, 0, 0, 0),
+            MarkBackColor = Color.FromArgb(180, 0, 0, 0),
+            MarkForeColor = Color.FromArgb(180, 0, 0, 0),
+            MinimumSize = new Size(100, 100),
+            Name = "NodeEditor",
+            Size = new Size(558, 426),
+        };
+
+        public STNodeEditor GetNodeEditor() => NodeEditor;
 
         public NodeSandbox(byte[] graph)
         {
-            Visable = false;
-            NodeTypeService.Shared.Foreach(s => NodeEditor.LoadType(s));
+            NodeEditor.Initialize();
             NodeEditor.LoadCanvas(graph);
         }
 
@@ -24,7 +37,12 @@ namespace Zhiyun.Nodes.Services
             Nodes = NodeEditor.Nodes.ToArray().Select(s => (s as NodeBase)!.GetNodeData()).ToList()
         };
 
-        public byte[] GetCanvasData() => NodeEditor.GetCanvasData();
+        public byte[] GetCanvasData()
+        {
+            using var stream = new MemoryStream();
+            NodeEditor.SaveCanvas(stream);
+            return stream.ToArray();
+        }
 
         public DimensionType InputDimensionType => FindNode<Input>()?.FeaturesDim.DimensionType ?? DimensionType.OnlyBatch;
         public DimensionType OutputDimensionType => FindNode<Output>()?.OutDim.DimensionType ?? DimensionType.OnlyBatch;
@@ -44,7 +62,6 @@ namespace Zhiyun.Nodes.Services
 
         public Dimension Input(Dimension inputDimension)
         {
-   
             var inputNode = FindNode<Input>();
             inputNode?.Modify(inputDimension);
             var outputNode = FindNode<Output>();

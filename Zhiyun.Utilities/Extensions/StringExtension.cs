@@ -55,11 +55,8 @@ namespace Zhiyun.Utilities.Extensions
         /// <returns>对象结果</returns>
         static public TResult? ToObject<TResult>(this string str) where TResult: class
         {
-            if (typeof(TResult).Equals(typeof(string))) return (str.Trim('\"') as TResult);
-            else return JsonSerializer.Deserialize<TResult>(str, new JsonSerializerOptions()
-            {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
-            });
+            if (typeof(TResult).IsSubclassOf(typeof(string))) return (str.Trim('\"') as TResult);
+            else return JsonSerializer.Deserialize<TResult>(str, CommonSerializerOptions);
         }
 
         static public TResult ToEnum<TResult>(this string str) where TResult : struct

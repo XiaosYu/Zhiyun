@@ -38,7 +38,7 @@ namespace Zhiyun.Nodes
         public ParameterDataCollection(IEnumerable<ParameterData> collection) : base(collection) { }
 
 
-        [NotMapped]
+        [JsonIgnore]
         public List<string> Keys => this.Select(s => s.Name).ToList();
         public ParameterData this[string key]
         {

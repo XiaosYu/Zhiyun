@@ -14,16 +14,18 @@ namespace Zhiyun.Utilities.Extensions
 {
 	static public partial class Extension
 	{
-		/// <summary>
-		/// 将数据对象解析为Json字符串
-		/// </summary>
-		/// <param name="obj">需要解析的对象</param>
-		/// <returns>返回字符串</returns>
-		static public string ToJson(this object obj)
-			=> JsonSerializer.Serialize(obj, new JsonSerializerOptions()
-            {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
-            });
+		static JsonSerializerOptions CommonSerializerOptions = new JsonSerializerOptions()
+		{
+			Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+		};
+
+        /// <summary>
+        /// 将数据对象解析为Json字符串
+        /// </summary>
+        /// <param name="obj">需要解析的对象</param>
+        /// <returns>返回字符串</returns>
+        static public string ToJson(this object obj)
+			=> JsonSerializer.Serialize(obj, CommonSerializerOptions);
 
 		/// <summary>
 		/// 复制源对象的成员值到目标对象中

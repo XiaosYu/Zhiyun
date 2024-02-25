@@ -34,7 +34,7 @@ namespace Zhiyun.Nodes
             {
                 var output = Nodes.FirstOrDefault(s => s.Type.Contains("Input"));
                 if (output != null) return output.Parameters["FeatureDim"].Value as Dimension;
-                else return Dimension.Create();
+                else return Dimension.Empty;
             }
         }
 
@@ -45,7 +45,7 @@ namespace Zhiyun.Nodes
             {
                 var output = Nodes.FirstOrDefault(s => s.Type.Contains("Output"));
                 if (output != null) return output.Parameters["OutDim"].Value as Dimension;
-                else return Dimension.Create();
+                else return Dimension.Empty;
             }
         }
 

@@ -331,10 +331,24 @@ namespace Zhiyun.FlowChart.NodeEditor
             return items;
         }
 
-        protected STNodeTreeCollection AddTypePrivate(Type type)
+        protected STNodeTreeCollection AddTypePrivate(string @namespace, Type type)
         {
-            STNodeTreeCollection items = new STNodeTreeCollection("Custom");
-            if(type.IsSubclassOf(m_type_node_base)) this.AddSTNode(type, items, items.Name, false);
+            STNodeTreeCollection items = new STNodeTreeCollection(@namespace);
+            if (type.IsSubclassOf(m_type_node_base) && !type.IsAbstract)
+            {
+                this.AddSTNode(type, items, items.Name, false);
+            }
+            return items;
+        }
+
+        protected STNodeTreeCollection AddTypesPrivate(string @namespace, IEnumerable<Type> types)
+        {
+            var items = new STNodeTreeCollection(@namespace);
+            foreach(var v in types)
+            {
+                if (v.IsAbstract) continue;
+                if (v.IsSubclassOf(m_type_node_base)) this.AddSTNode(v, items, items.Name, false);
+            }
             return items;
         }
 
@@ -703,10 +717,17 @@ namespace Zhiyun.FlowChart.NodeEditor
             return items.STNodeCount;
         }
 
-        public void LoadType(Type type)
+        public void LoadType(string @namespace, Type type)
         {
-            var items = AddTypePrivate(type);
-            items.IsLibraryRoot = false;
+            var items = AddTypePrivate(@namespace, type);
+            items.IsLibraryRoot = true;
+            m_items_source[items.Name] = items;
+        }
+
+        public void LoadTypes(string @namespace, IEnumerable<Type> types)
+        {
+            var items = AddTypesPrivate(@namespace, types);
+            items.IsLibraryRoot = true;
             m_items_source[items.Name] = items;
         }
         /// <summary>

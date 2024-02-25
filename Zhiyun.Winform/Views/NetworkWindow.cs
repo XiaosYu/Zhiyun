@@ -32,8 +32,8 @@ namespace Zhiyun.Winform.Views
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            NodeEditor.LoadNodes();
-            NodeTreeView.LoadNodes();
+            NodeEditor.Initialize();
+            NodeTreeView.Initialize();
 
             NodeEditor.ActiveChanged += (s, ea) => NodePropertyGrid.SetNode(NodeEditor.ActiveNode);
             NodeEditor.OptionConnected += (s, ea) => NodeEditor.ShowAlert(ea.Status.ToString(), Color.White, ea.Status == ConnectionStatus.Connected ? Color.FromArgb(125, Color.Green) : Color.FromArgb(125, Color.Red));
@@ -66,14 +66,15 @@ namespace Zhiyun.Winform.Views
             }
             else e.Node.ContextMenuStrip = new NodeContextMenuStrip();
 
-            e.Node.ContextMenuStrip = new NodeContextMenuStrip()
+            if(e.Node.ContextMenuStrip is NodeContextMenuStrip strip)
             {
-                OnClickDelete = () =>
+                strip.OnClickDelete = () =>
                 {
                     NodeEditor.Nodes.Remove(e.Node);
                     NodeEditor.Nodes.ToArray().Foreach(s => (s as NodeBase)!.ChildNodes.Remove((e.Node as NodeBase)!));
-                }
-            };
+                };
+            }
+          
 
           
         }

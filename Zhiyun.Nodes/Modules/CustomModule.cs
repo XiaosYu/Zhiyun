@@ -14,20 +14,68 @@ using Zhiyun.Utilities.Extensions;
 
 namespace Zhiyun.Nodes.Modules
 {
+    [STNode("网络模块/自定义模型")]
     public abstract class CustomModule : Module
     {
         public CustomModule()
         {
             TitleColor = Color.FromArgb(200, Color.Pink);
+            Sandbox = null!;
+            SettableParameters = null!;
         }
 
         private NodeSandbox Sandbox;
         private List<ParameterData> SettableParameters;
 
         public byte[] GetBytes() => Sandbox.GetCanvasData();
+        public STNodeEditor GetNodeEditor() => Sandbox.GetNodeEditor();
 
         public abstract string ModuleMessageText { get; }
 
+        public override NodeData GetNodeData()
+        {
+            var parameter = new ParameterDataCollection(GetType()
+                                .GetProperties()
+                                .Where(s => s.GetCustomAttribute<PropertyAttribute>() != null)
+                                .Select(s =>
+                                {
+                                    var @default = s.GetCustomAttribute<PropertyAttribute>()!.Default;
+                                    return new ParameterData()
+                                    {
+                                        Id = $"{Random.Shared.RandLower(1)}{Random.Shared.RandString(5)}",
+                                        Settable = @default,
+                                        Name = s.Name,
+                                        Type = s.PropertyType.Name,
+                                        Value = s.GetValue(this),
+                                        ParentID = Id,
+                                        ParentType = GetType().Name
+                                    };
+                                })
+                                .ToList())
+            {
+                new ParameterData()
+                {
+                    Id = $"{Random.Shared.RandLower(1)}{Random.Shared.RandString(5)}",
+                    Settable = false,
+                    Name = "Monolithic",
+                    Type = "Monolithic",
+                    Value = Sandbox.GetMonolithic(),
+                    ParentID = Id,
+                    ParentType = GetType().Name
+                }
+            };
+            
+
+            return new NodeData
+            {
+                Name = Name,
+                Type = "CustomModule",
+                Parameters = parameter,
+                Id = Id,
+                Connected = ChildNodes.Select(s => s.Id).ToList(),
+                LearnableParameters = GetType().GetProperty("ParametersNumber") != null ? (int)GetType().GetProperty("ParametersNumber")!.GetValue(this)! : 0
+            };
+        }
 
         public override void OnFlushComponent()
         {
@@ -78,7 +126,6 @@ namespace Zhiyun.Nodes.Modules
         protected override void OnReceivedMessagePart(ConnectionData data)
         {
             Sandbox.Input(data.Dimension);
-            //更新参数，使参数对其
             GetType()
                .GetProperties()
                .Where(s => s.GetCustomAttribute<PropertyAttribute>() != null)
@@ -93,12 +140,6 @@ namespace Zhiyun.Nodes.Modules
                    field?.SetValue(this, nodeValue);
                });
         }
-
-
-
-
-
-
 
         public static Type CreateCustomModuleType(ModuleMessage module)
         {
