@@ -1836,6 +1836,7 @@ namespace Zhiyun.FlowChart.NodeEditor
                         throw new Exception("获取节点数据出错-" + node.Title, ex);
                     }
                 }
+
                 gs.Write(BitConverter.GetBytes(m_dic_gp_info.Count), 0, 4);
                 foreach (var v in m_dic_gp_info.Values)
                     gs.Write(BitConverter.GetBytes(((dic[v.Output] << 32) | dic[v.Input])), 0, 8);
@@ -1924,8 +1925,8 @@ namespace Zhiyun.FlowChart.NodeEditor
         /// </summary>
         /// <param name="byData">二进制数据</param>
         public void LoadCanvas(byte[] byData) {
-            using (MemoryStream ms = new MemoryStream(byData))
-                this.LoadCanvas(ms);
+            using MemoryStream ms = new(byData);
+            this.LoadCanvas(ms);
         }
         /// <summary>
         /// 从数据流中加载数据
@@ -1948,8 +1949,8 @@ namespace Zhiyun.FlowChart.NodeEditor
                 float scale = BitConverter.ToSingle(byLen, 0);
                 gs.Read(byLen, 0, 4);
                 int nCount = BitConverter.ToInt32(byLen, 0);
-                Dictionary<long, STNodeOption> dic = new Dictionary<long, STNodeOption>();
-                HashSet<STNodeOption> hs = new HashSet<STNodeOption>();
+                Dictionary<long, STNodeOption> dic = new();
+                HashSet<STNodeOption> hs = new();
                 byte[] byData = null;
                 for (int i = 0; i < nCount; i++) {
                     gs.Read(byLen, 0, byLen.Length);
@@ -1966,7 +1967,9 @@ namespace Zhiyun.FlowChart.NodeEditor
                     foreach (STNodeOption op in node.InputOptions) if (hs.Add(op)) dic.Add(dic.Count, op);
                     foreach (STNodeOption op in node.OutputOptions) if (hs.Add(op)) dic.Add(dic.Count, op);
                 }
+
                 gs.Read(byLen, 0, 4);
+
                 nCount = BitConverter.ToInt32(byLen, 0);
                 byData = new byte[8];
                 for (int i = 0; i < nCount; i++) {
@@ -1980,7 +1983,9 @@ namespace Zhiyun.FlowChart.NodeEditor
                 this.MoveCanvas(x, y, false, CanvasMoveArgs.All);
             }
             this.BuildBounds();
-            foreach (STNode node in this._Nodes) node.OnEditorLoadCompleted();
+
+            foreach (STNode node in this._Nodes) 
+                node.OnEditorLoadCompleted();
         }
 
         private STNode GetNodeFromData(byte[] byData) {

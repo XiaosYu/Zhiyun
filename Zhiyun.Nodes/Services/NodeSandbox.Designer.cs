@@ -1,6 +1,8 @@
-﻿namespace Zhiyun.Winform.Views
+﻿using System.Drawing;
+
+namespace Zhiyun.Nodes.Services
 {
-    partial class ShowDetailWindow
+    partial class NodeSandbox
     {
         /// <summary>
         /// Required designer variable.
@@ -67,14 +69,13 @@
             // ShowDetailWindow
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = Color.FromArgb(34, 34, 34);
             ClientSize = new Size(800, 450);
             Controls.Add(NodePropertyGrid);
             Controls.Add(NodeEditor);
-            Name = "ShowDetailWindow";
+            Name = "NodeSandbox";
             Text = "模块详细";
-            Load += ShowDetailWindow_Load;
             ResumeLayout(false);
         }
 

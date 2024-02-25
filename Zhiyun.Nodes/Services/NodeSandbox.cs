@@ -1,35 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using Zhiyun.Nodes;
 using Zhiyun.Utilities.Extensions;
 
 namespace Zhiyun.Nodes.Services
 {
-    public class NodeSandbox: STNodeControl
+    public partial class NodeSandbox : Form
     {
-        private readonly STNodeEditor NodeEditor = new()
-        {
-            AllowDrop = true,
-            BackColor = Color.FromArgb(34, 34, 34),
-            Curvature = 0.3F,
-            Location = new Point(230, 12),
-            LocationBackColor = Color.FromArgb(120, 0, 0, 0),
-            MarkBackColor = Color.FromArgb(180, 0, 0, 0),
-            MarkForeColor = Color.FromArgb(180, 0, 0, 0),
-            MinimumSize = new Size(100, 100),
-            Name = "NodeEditor",
-            Size = new Size(558, 426),
-        };
-
         public STNodeEditor GetNodeEditor() => NodeEditor;
 
-        public NodeSandbox(byte[] graph)
+        public NodeSandbox(byte[] graphs)
         {
+            InitializeComponent();
+            NodeEditor.ActiveChanged += (s, ea) => NodePropertyGrid.SetNode(NodeEditor.ActiveNode);
+            NodePropertyGrid.ReadOnlyModel = true;
+
             NodeEditor.Initialize();
-            NodeEditor.LoadCanvas(graph);
+            NodeEditor.LoadCanvas(graphs);
         }
 
         public MonolithicNode GetMonolithic() => new()
@@ -47,8 +41,8 @@ namespace Zhiyun.Nodes.Services
         public DimensionType InputDimensionType => FindNode<Input>()?.FeaturesDim.DimensionType ?? DimensionType.OnlyBatch;
         public DimensionType OutputDimensionType => FindNode<Output>()?.OutDim.DimensionType ?? DimensionType.OnlyBatch;
 
-        public TNode? FindNode<TNode>() where TNode : NodeBase => (TNode)NodeEditor.Nodes.Cast<NodeBase>().FirstOrDefault(s=> s is TNode)!;
-        public TNode? FindNode<TNode>(Func<NodeBase, bool> match) where TNode: NodeBase => (TNode)NodeEditor.Nodes.Cast<NodeBase>().FirstOrDefault(match)!;
+        public TNode? FindNode<TNode>() where TNode : NodeBase => (TNode)NodeEditor.Nodes.Cast<NodeBase>().FirstOrDefault(s => s is TNode)!;
+        public TNode? FindNode<TNode>(Func<NodeBase, bool> match) where TNode : NodeBase => (TNode)NodeEditor.Nodes.Cast<NodeBase>().FirstOrDefault(match)!;
         public NodeBase? FindNode(Func<NodeBase, bool> match) => NodeEditor.Nodes.Cast<NodeBase>().FirstOrDefault(match)!;
 
         public long GetParametersNumber() => NodeEditor.Nodes
@@ -67,5 +61,8 @@ namespace Zhiyun.Nodes.Services
             var outputNode = FindNode<Output>();
             return outputNode?.OutDim ?? Dimension.Empty;
         }
+
+
+
     }
 }

@@ -20,8 +20,6 @@ namespace Zhiyun.Nodes.Modules
         public CustomModule()
         {
             TitleColor = Color.FromArgb(200, Color.Pink);
-            Sandbox = null!;
-            SettableParameters = null!;
         }
 
         private NodeSandbox Sandbox;
@@ -31,6 +29,8 @@ namespace Zhiyun.Nodes.Modules
         public STNodeEditor GetNodeEditor() => Sandbox.GetNodeEditor();
 
         public abstract string ModuleMessageText { get; }
+
+        public void ShowDetailWindow() => Sandbox.ShowDialog();
 
         public override NodeData GetNodeData()
         {

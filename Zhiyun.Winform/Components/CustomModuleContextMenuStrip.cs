@@ -11,6 +11,7 @@ namespace Zhiyun.Winform.Components
 {
     public class CustomModuleContextMenuStrip: NodeContextMenuStrip
     {
+
         public CustomModuleContextMenuStrip(CustomModule customModule) 
         {
             var showDetail = new ToolStripMenuItem
@@ -19,7 +20,8 @@ namespace Zhiyun.Winform.Components
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(200, 34, 34, 34)
             };
-            showDetail.Click += (object? sender, EventArgs args) => new ShowDetailWindow(customModule.GetBytes()).ShowDialog();
+
+            showDetail.Click += (object? sender, EventArgs args) => customModule.ShowDetailWindow();
 
             Items.Add(showDetail);
         }
