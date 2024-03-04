@@ -6,11 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Zhiyun.FlowChart\Zhiyun.FlowChart.csproj" />
     <ProjectReference Include="..\Zhiyun.Nodes\Zhiyun.Nodes.csproj" />
+    <ProjectReference Include="..\Zhiyun.TrainTask\Zhiyun.TrainTask.csproj" />
     <ProjectReference Include="..\Zhiyun.Utilities\Zhiyun.Utilities.csproj" />
   </ItemGroup>
 

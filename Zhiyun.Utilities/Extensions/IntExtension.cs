@@ -26,7 +26,7 @@ namespace Zhiyun.Utilities.Extensions
         /// </summary>
         /// <param name="count">循环次数</param>
         /// <param name="action">目标函数</param>
-        static public void ForEach(this int count, Action<int> action)
+        static public void For(this int count, Action<int> action)
         {
             for (int i = 0; i < count; ++i)
             {

@@ -69,7 +69,7 @@ namespace Zhiyun.Winform.Views
             if (!Path.Exists("Models"))
                 Directory.CreateDirectory("Models");
 
-            File.WriteAllText(Path.Combine("Models", "data.json"), ModuleMessage.ToJson());
+            File.WriteAllText(Path.Combine("Models", $"{ModuleMessage.Name}.json"), ModuleMessage.ToJson());
         }
 
        

@@ -15,6 +15,6 @@ namespace Zhiyun.Nodes
             editor.LoadTypes(NodeTypeService.Shared.LoadedTypes);
         }
 
-        public static void Initialize(this STNodeTreeView view) => view.LoadTypes("System.Nodes", NodeTypeService.Shared.LoadedTypes);
+        public static void Initialize(this STNodeTreeView view) => view.LoadTypes("节点", NodeTypeService.Shared.LoadedTypes);
     }
 }

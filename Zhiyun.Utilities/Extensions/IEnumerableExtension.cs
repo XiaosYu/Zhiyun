@@ -36,7 +36,7 @@ namespace Zhiyun.Utilities.Extensions
                 builder.Append(item);
                 builder.Append(split);
             }
-            builder.Remove(builder.Length - 1, 1);
+            builder.Remove(builder.Length - split.Length, split.Length);
             return builder.ToString();
         }
 

@@ -27,8 +27,7 @@ namespace Zhiyun.Utilities.Configs
         {
             var type = typeof(T);
             var attributes = Attribute.GetCustomAttributes(type);
-            var attribute = attributes.FirstOrDefault(s => s is ConfigModelAttribute) as ConfigModelAttribute;
-            if (attribute != null)
+            if (attributes.FirstOrDefault(s => s is ConfigModelAttribute) is ConfigModelAttribute attribute)
             {
                 //获取位置
                 if (path == null)
@@ -60,8 +59,7 @@ namespace Zhiyun.Utilities.Configs
         {
             var type = typeof(T);
             var attributes = Attribute.GetCustomAttributes(type);
-            var attribute = attributes.FirstOrDefault(s => s is ConfigModelAttribute) as ConfigModelAttribute;
-            if (attribute != null)
+            if (attributes.FirstOrDefault(s => s is ConfigModelAttribute) is ConfigModelAttribute attribute)
             {
                 //获取位置
                 if (path == null)
@@ -93,8 +91,7 @@ namespace Zhiyun.Utilities.Configs
         {
             var type = typeof(T);
             var attributes = Attribute.GetCustomAttributes(type);
-            var attribute = attributes.FirstOrDefault(s => s is ConfigModelAttribute) as ConfigModelAttribute;
-            if (attribute != null)
+            if (attributes.FirstOrDefault(s => s is ConfigModelAttribute) is ConfigModelAttribute attribute)
             {
                 //获取位置
                 if (path == null)
@@ -125,8 +122,7 @@ namespace Zhiyun.Utilities.Configs
         {
             var type = typeof(T);
             var attributes = Attribute.GetCustomAttributes(type);
-            var attribute = attributes.FirstOrDefault(s => s is ConfigModelAttribute) as ConfigModelAttribute;
-            if (attribute != null)
+            if (attributes.FirstOrDefault(s => s is ConfigModelAttribute) is ConfigModelAttribute attribute)
             {
                 //获取位置
                 if (path == null)

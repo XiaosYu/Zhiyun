@@ -23,6 +23,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Zhiyun.Nodes\Zhiyun.Nodes.csproj" />
     <ProjectReference Include="..\Zhiyun.Utilities\Zhiyun.Utilities.csproj" />
   </ItemGroup>
 </Project>

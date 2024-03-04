@@ -37,7 +37,7 @@
         [JsonIgnore]
         public bool OnlyBatch => Dimensions.Count == 1;
         [JsonIgnore]
-        public Dimension DimensionWithoutBatch => new(Dimensions.Except([Batch]).ToList());
+        public Dimension DimensionWithoutBatch => new(Dimensions[1..]);
 
         [JsonIgnore]
         public int ValueCount => Dimensions.Where(s=>s != Batch).Aggregate((product, next) => product * next);

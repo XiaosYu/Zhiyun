@@ -15,7 +15,7 @@ namespace Zhiyun.Utilities.Cryptography
 
         public Encoding DefaultEncoding { get; set; } = Encoding.UTF8;
         public static AesCryptography Share { get; } = new AesCryptography();
-        public static AesCryptography Create() => new AesCryptography();
+        public static AesCryptography Create() => new();
         public byte[] Decrypt(byte[] source, byte[] key)
         {
             if (key.Length != 32) throw new KeyLengthException();

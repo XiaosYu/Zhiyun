@@ -8,6 +8,7 @@ namespace Zhiyun.Nodes.Structures
 {
     public abstract class Input: Structure
     {
+        [Property]
         public abstract Dimension FeaturesDim { get; }
 
         protected virtual STNodeOption OutPort => OutputOptions[0];

@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Nodes;
+using System.Configuration;
 #nullable disable
 
 namespace Zhiyun.Nodes
@@ -16,7 +18,8 @@ namespace Zhiyun.Nodes
         public string Id { set; get; }
         public ParameterDataCollection Parameters { set; get; }
         public int LearnableParameters { get; set; }
-        public List<string> Connected { set; get; }
+        public List<string> Outputs { set; get; }
+        public List<string> Inputs { set; get; }
         public object this[string parameterName]
         {
             get => Parameters.FirstOrDefault(s => s.Name == parameterName);
@@ -33,7 +36,11 @@ namespace Zhiyun.Nodes
             get
             {
                 var output = Nodes.FirstOrDefault(s => s.Type.Contains("Input"));
-                if (output != null) return output.Parameters["FeatureDim"].Value as Dimension;
+                if (output != null)
+                {
+                    var element = (JsonElement)output.Parameters["FeaturesDim"].Value;
+                    return element.Deserialize<Dimension>();
+                }
                 else return Dimension.Empty;
             }
         }
@@ -44,7 +51,7 @@ namespace Zhiyun.Nodes
             get
             {
                 var output = Nodes.FirstOrDefault(s => s.Type.Contains("Output"));
-                if (output != null) return output.Parameters["OutDim"].Value as Dimension;
+                if (output != null) return ((JsonElement)output.Parameters["OutDim"].Value).Deserialize<Dimension>();
                 else return Dimension.Empty;
             }
         }

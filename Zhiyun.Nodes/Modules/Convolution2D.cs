@@ -118,7 +118,6 @@ namespace Zhiyun.Nodes.Modules
         {
             base.OnInitializeProperty();
 
-            AutoSize = false;
             AddTextBlockControl("Feature", "");
         }
     }

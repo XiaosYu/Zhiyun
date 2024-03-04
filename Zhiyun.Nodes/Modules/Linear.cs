@@ -46,8 +46,6 @@ namespace Zhiyun.Nodes.Modules
         {
             if (data.Dimension.DimensionType == DimensionType.Vector)
                 InFeatures = data.Dimension[1];
-            //else throw new Exception("Dimension Error");
-            
         }
 
         protected override void OnInitializeProperty()

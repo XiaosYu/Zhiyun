@@ -48,13 +48,14 @@ namespace Zhiyun.Nodes
         }
 
         public List<NodeBase> ChildNodes { get; } = [];
+        public List<NodeBase> ParentNodes { get; } = [];
 
         public void AddInPort(string name, bool single) => InputOptions.Add(name, typeof(ConnectionData), single);
         public void AddOutPort(string name, bool single) => OutputOptions.Add(name, typeof(ConnectionData), single);
 
         public virtual NodeData GetNodeData()
         {
-            return new NodeData
+            var nodeData = new NodeData
             {
                 Name = Name,
                 Type = GetType().Name,
@@ -77,9 +78,11 @@ namespace Zhiyun.Nodes
                                 })
                                 .ToList()),
                 Id = Id,
-                Connected = ChildNodes.Select(s => s.Id).ToList(),
+                Outputs = ChildNodes.Select(s => s.Id).ToList(),
+                Inputs = ParentNodes.Select(s => s.Id).ToList(),
                 LearnableParameters = GetType().GetProperty("ParametersNumber") != null ? (int)GetType().GetProperty("ParametersNumber")!.GetValue(this)! : 0
             };
+            return nodeData;
         }
 
         public virtual void OnReceivedMessage(ConnectionData data)

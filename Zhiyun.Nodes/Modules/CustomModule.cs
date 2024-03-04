@@ -57,7 +57,7 @@ namespace Zhiyun.Nodes.Modules
                 {
                     Id = $"{Random.Shared.RandLower(1)}{Random.Shared.RandString(5)}",
                     Settable = false,
-                    Name = "Monolithic",
+                    Name = GetType().Name,
                     Type = "Monolithic",
                     Value = Sandbox.GetMonolithic(),
                     ParentID = Id,
@@ -72,7 +72,8 @@ namespace Zhiyun.Nodes.Modules
                 Type = "CustomModule",
                 Parameters = parameter,
                 Id = Id,
-                Connected = ChildNodes.Select(s => s.Id).ToList(),
+                Outputs = ChildNodes.Select(s => s.Id).ToList(),
+                Inputs = ParentNodes.Select(s => s.Id).ToList(),
                 LearnableParameters = GetType().GetProperty("ParametersNumber") != null ? (int)GetType().GetProperty("ParametersNumber")!.GetValue(this)! : 0
             };
         }
@@ -107,6 +108,7 @@ namespace Zhiyun.Nodes.Modules
         {
             var moduleMessage = ModuleMessageText.ToObject<ModuleMessage>()!;
             Sandbox = new(moduleMessage.Graphs.FromBase64String());
+            Sandbox.Text = $"{moduleMessage.Name}详细信息";
             SettableParameters = moduleMessage.Monolithic.SettableParameters;
 
             SettableParameters.ForEach(s =>

@@ -11,6 +11,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.Reflection;
 using System.IO.Compression;
+using Zhiyun.FlowChart.Services;
 /*
 MIT License
 
@@ -158,6 +159,31 @@ namespace Zhiyun.FlowChart.NodeEditor
             set {
                 _ShowBorder = value;
                 this.Invalidate();
+            }
+        }
+
+
+        private int _borderThickness = 3;
+        [Description("设置或获取当前边框厚度"), DefaultValue(true)]
+        public int BorderThickness
+        {
+            get => _borderThickness;
+            set
+            {
+                _borderThickness = value;
+                Invalidate();
+            }
+        }
+
+        private int _radians = 5;
+        [Description("设置或获取当前边框角度"), DefaultValue(true)]
+        public int Radians
+        {
+            get => _radians;
+            set
+            {
+                _radians = value;
+                Invalidate();
             }
         }
 
@@ -652,6 +678,11 @@ namespace Zhiyun.FlowChart.NodeEditor
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             m_drawing_tools.Graphics = g;
             SolidBrush brush = m_drawing_tools.SolidBrush;
+
+            //画圆角边框
+            var hRgn = Win32.CreateRoundRectRgn(0, 0, Width + BorderThickness, Height + BorderThickness, Radians, Radians);
+            Win32.SetWindowRgn(Handle, hRgn, true);
+            _ = Win32.DeleteObject(hRgn);
 
             if (this._ShowGrid) this.OnDrawGrid(m_drawing_tools, this.Width, this.Height);
 

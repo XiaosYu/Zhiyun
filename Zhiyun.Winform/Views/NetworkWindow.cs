@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,7 +42,7 @@ namespace Zhiyun.Winform.Views
 
             NodeEditor.OptionConnected += NodeEditor_OptionConnected;
             NodeEditor.NodeAdded += NodeEditor_NodeAdded;
-            
+
         }
 
         private void NodeEditor_NodeAdded(object sender, STNodeEditorEventArgs e)
@@ -66,7 +67,7 @@ namespace Zhiyun.Winform.Views
             }
             else e.Node.ContextMenuStrip = new NodeContextMenuStrip();
 
-            if(e.Node.ContextMenuStrip is NodeContextMenuStrip strip)
+            if (e.Node.ContextMenuStrip is NodeContextMenuStrip strip)
             {
                 strip.OnClickDelete = () =>
                 {
@@ -74,9 +75,9 @@ namespace Zhiyun.Winform.Views
                     NodeEditor.Nodes.ToArray().Foreach(s => (s as NodeBase)!.ChildNodes.Remove((e.Node as NodeBase)!));
                 };
             }
-          
 
-          
+
+
         }
 
         private void NodeEditor_OptionConnected(object sender, STNodeEditorOptionEventArgs e)
@@ -86,16 +87,28 @@ namespace Zhiyun.Winform.Views
                 if (!e.CurrentOption.IsInput)
                 {
                     if (e.Status == ConnectionStatus.Connected)
+                    {
                         current.ChildNodes.Add(target);
+                        target.ParentNodes.Add(current);
+                    }
                     else if (e.Status == ConnectionStatus.DisConnected)
+                    {
                         current.ChildNodes.Remove(target);
+                        target.ParentNodes.Remove(current);
+                    }
                 }
                 else
                 {
                     if (e.Status == ConnectionStatus.Connected)
+                    {
                         target.ChildNodes.Add(current);
+                        current.ParentNodes.Add(target);
+                    }
                     else if (e.Status == ConnectionStatus.DisConnected)
+                    {
                         target.ChildNodes.Remove(current);
+                        current.ParentNodes.Remove(target);
+                    }
                 }
             }
 
@@ -109,18 +122,24 @@ namespace Zhiyun.Winform.Views
             {
                 var project = new ProjectService();
                 var projectName = ProjectName.Text;
+
                 var result = await project.SaveProjectAsync($"{dialog.SelectedPath}/{projectName}", async (path) =>
                 {
 
                     NodeEditor.SaveCanvas($"{path}/canvas.zyf");
 
                     var totalNodes = NodeEditor.Nodes.ToArray().Where(s => s is NodeBase).Select(s => (s as NodeBase)!.GetNodeData());
-                    var monolithicNode = new MonolithicNode()
+                    var moduleMessage = new ModuleMessage()
                     {
-                        Nodes = totalNodes.ToList()
+                        Monolithic = new MonolithicNode()
+                        {
+                            Nodes = totalNodes.ToList()
+                        },
+                        Graphs = NodeEditor.GetCanvasData().ToBase64String(),
+                        Name = ProjectName.Text
                     };
 
-                    await File.WriteAllTextAsync($"{path}/network.zyn", monolithicNode.ToJson());
+                    await File.WriteAllTextAsync($"{path}/network.zyn", moduleMessage.ToJson());
 
                     CurrentProject.FileNames = [
                         $"{projectName}.zypj",
@@ -178,20 +197,37 @@ namespace Zhiyun.Winform.Views
         {
             if (CurrentProject.FileNames.Count != 0 && !string.IsNullOrEmpty(CurrentRoot))
             {
-                var flowChatPath = CurrentProject.FileNames.First(s => s.Contains(".zyf"));
-                var networkPath = CurrentProject.FileNames.First(s => s.Contains(".zyn"));
-                var projectPath = CurrentProject.FileNames.First(s => s.Contains(".zypj"));
+                var path = CurrentRoot;
+                var projectName = ProjectName.Text;
                 var project = new ProjectService();
                 await project.SaveProjectAsync(async () =>
                 {
-                    NodeEditor.SaveCanvas($"{CurrentRoot}/{flowChatPath}");
-                    var firstNode = NodeEditor.Nodes.ToArray().First(s => s is Input) as Input;
-                    var node = firstNode!.GetNodeData();
+                    NodeEditor.SaveCanvas($"{path}/canvas.zyf");
 
-                    await File.WriteAllTextAsync($"{CurrentRoot}/{networkPath}", node.ToJson());
-                    CurrentProject.LastModified = DateTime.Now;
+                    var totalNodes = NodeEditor.Nodes.ToArray().Where(s => s is NodeBase).Select(s => (s as NodeBase)!.GetNodeData());
 
-                    await File.WriteAllTextAsync($"{CurrentRoot}/{projectPath}", CurrentProject.ToJson());
+                    var moduleMessage = new ModuleMessage()
+                    {
+                        Monolithic = new MonolithicNode()
+                        {
+                            Nodes = totalNodes.ToList()
+                        },
+                        Graphs = NodeEditor.GetCanvasData().ToBase64String(),
+                        Name = ProjectName.Text
+                    };
+
+                    await File.WriteAllTextAsync($"{path}/network.zyn", moduleMessage.ToJson());
+
+                    CurrentProject.FileNames = [
+                        $"{projectName}.zypj",
+                        $"canvas.zyf",
+                        $"network.zyn"
+                    ];
+
+                    CurrentProject.ProjectName = projectName;
+                    CurrentRoot = path;
+
+                    await File.WriteAllTextAsync($"{path}/{projectName}.zypj", CurrentProject.ToJson());
                 });
             }
             else
@@ -222,6 +258,10 @@ namespace Zhiyun.Winform.Views
             window.ShowDialog();
         }
 
-        
+        private void EToolStripMenuItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var wizard = new TrainWizardWindow();
+            wizard.Show();
+        }
     }
 }

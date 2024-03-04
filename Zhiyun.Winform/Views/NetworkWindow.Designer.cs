@@ -41,6 +41,7 @@
             XToolStripMenuItem = new ToolStripMenuItem();
             EToolStripMenuItem = new ToolStripMenuItem();
             ProjectName = new TextBox();
+            EToolStripMenuItemToolStripMenuItem = new ToolStripMenuItem();
             MenuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             // 
             NodeEditor.AllowDrop = true;
             NodeEditor.BackColor = Color.FromArgb(34, 34, 34);
-            NodeEditor.Curvature = 0.3F;
+            NodeEditor.Curvature = 0.7F;
             NodeEditor.Location = new Point(287, 45);
             NodeEditor.LocationBackColor = Color.FromArgb(120, 0, 0, 0);
             NodeEditor.MarkBackColor = Color.FromArgb(180, 0, 0, 0);
@@ -98,7 +99,7 @@
             // 
             MenuStrip.BackColor = Color.FromArgb(34, 34, 34);
             MenuStrip.ImageScalingSize = new Size(20, 20);
-            MenuStrip.Items.AddRange(new ToolStripItem[] { FToolStripMenuItem, EToolStripMenuItem });
+            MenuStrip.Items.AddRange(new ToolStripItem[] { FToolStripMenuItem, EToolStripMenuItem, EToolStripMenuItemToolStripMenuItem });
             MenuStrip.Location = new Point(0, 0);
             MenuStrip.Name = "MenuStrip";
             MenuStrip.Size = new Size(1570, 28);
@@ -185,6 +186,14 @@
             ProjectName.TabIndex = 5;
             ProjectName.Text = "未命名项目";
             // 
+            // EToolStripMenuItemToolStripMenuItem
+            // 
+            EToolStripMenuItemToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
+            EToolStripMenuItemToolStripMenuItem.Name = "EToolStripMenuItemToolStripMenuItem";
+            EToolStripMenuItemToolStripMenuItem.Size = new Size(71, 24);
+            EToolStripMenuItemToolStripMenuItem.Text = "训练(&E)";
+            EToolStripMenuItemToolStripMenuItem.Click += EToolStripMenuItemToolStripMenuItem_Click;
+            // 
             // NetworkWindow
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -220,5 +229,6 @@
         private ToolStripMenuItem XToolStripMenuItem;
         private TextBox ProjectName;
         private ToolStripMenuItem EToolStripMenuItem;
+        private ToolStripMenuItem EToolStripMenuItemToolStripMenuItem;
     }
 }

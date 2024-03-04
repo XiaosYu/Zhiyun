@@ -15,7 +15,7 @@ namespace Zhiyun.Utilities.IO.Compression
         public void Add(string block, string path, string id)
         {
             if (!File.Exists(path)) throw new FileNotFoundException();
-            if (_entities.ContainsKey(block)) _entities[block].Add((path, id));
+            if (_entities.TryGetValue(block, out List<(string, string)>? value)) value.Add((path, id));
             else
             {
                 _entities.Add(block,
@@ -28,7 +28,7 @@ namespace Zhiyun.Utilities.IO.Compression
         {
             if (!File.Exists(path)) throw new FileNotFoundException();
             var id = Path.GetFileName(path);
-            if (_entities.ContainsKey(block)) _entities[block].Add((path, id));
+            if (_entities.TryGetValue(block, out List<(string, string)>? value)) value.Add((path, id));
             else
             {
                 _entities.Add(block,

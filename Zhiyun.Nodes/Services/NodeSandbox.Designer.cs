@@ -48,6 +48,9 @@ namespace Zhiyun.Nodes.Services
             NodeEditor.Size = new Size(558, 426);
             NodeEditor.TabIndex = 0;
             NodeEditor.Text = "stNodeEditor1";
+            NodeEditor.NodeAdded += NodeEditor_NodeAdded;
+            NodeEditor.OptionConnecting += NodeEditor_OptionConnecting;
+            NodeEditor.OptionDisConnecting += NodeEditor_OptionDisConnecting;
             // 
             // NodePropertyGrid
             // 
@@ -66,7 +69,7 @@ namespace Zhiyun.Nodes.Services
             NodePropertyGrid.Text = "节点属性";
             NodePropertyGrid.TitleColor = Color.FromArgb(127, 0, 0, 0);
             // 
-            // ShowDetailWindow
+            // NodeSandbox
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

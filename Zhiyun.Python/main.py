@@ -1,16 +1,16 @@
-from args import set_args
-from json import loads
-from train import train
+from zhiyun import SyntaxHandler
+from zhiyun.utils import json_loads
 
+import torch
 
-def main(args):
-    with open(args.config, 'r') as f:
-        config = loads(f.read())
-    task = config['Task']
-    if task == 'train':
-        train(config)
+with open('network.zyn', 'r', encoding='utf-8') as f:
+    data = json_loads(f.read())['Nodes']
+converter = SyntaxHandler()
+model_type = converter.handle('TestNet', data)
 
+model = model_type()
 
-if __name__ == "__main__":
-    arg = set_args()
-    main(arg)
+data = torch.rand(16, 1, 28, 28)
+out = model(data)
+print(model)
+print(out.shape)

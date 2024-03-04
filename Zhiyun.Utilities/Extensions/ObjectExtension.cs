@@ -8,13 +8,12 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using Newtonsoft.Json.Linq;
 
 namespace Zhiyun.Utilities.Extensions
 {
 	static public partial class Extension
 	{
-		static JsonSerializerOptions CommonSerializerOptions = new JsonSerializerOptions()
+		static readonly JsonSerializerOptions CommonSerializerOptions = new JsonSerializerOptions()
 		{
 			Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
 		};
@@ -27,6 +26,11 @@ namespace Zhiyun.Utilities.Extensions
         static public string ToJson(this object obj)
 			=> JsonSerializer.Serialize(obj, CommonSerializerOptions);
 
+
+		static public string GetClassName(this object obj)
+			=> obj.GetType().Name;
+
+		/*
 		/// <summary>
 		/// 复制源对象的成员值到目标对象中
 		/// </summary>
@@ -71,7 +75,7 @@ namespace Zhiyun.Utilities.Extensions
 		static public object[] MapObject(this object source)
 		{
 			var type = source.GetType();
-			List<object> list = new List<object>();
+			List<object> list = [];
 			foreach(var property in type.GetProperties()) 
 			{
 				if(property.CanRead)
@@ -83,7 +87,7 @@ namespace Zhiyun.Utilities.Extensions
                     }       
 				}
 			}
-			return list.ToArray();
+			return [.. list];
 		}
 
         static public string ToHtmlUriParameters(this object data, bool isLower=true, params string[] exceptName)
@@ -105,6 +109,7 @@ namespace Zhiyun.Utilities.Extensions
 			}
 			else return null;
 		}
+		*/
 
 		static public void SetProperty(this object obj, string propertyName, object value) 
 		{
