@@ -33,6 +33,7 @@
             pictureBox1 = new PictureBox();
             BtLastStep = new Button();
             BtNextStep = new Button();
+            LabelCurrentPage = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -73,12 +74,22 @@
             BtNextStep.UseVisualStyleBackColor = true;
             BtNextStep.Click += BtNextStep_Click;
             // 
+            // LabelCurrentPage
+            // 
+            LabelCurrentPage.AutoSize = true;
+            LabelCurrentPage.Location = new Point(240, 421);
+            LabelCurrentPage.Name = "LabelCurrentPage";
+            LabelCurrentPage.Size = new Size(53, 20);
+            LabelCurrentPage.TabIndex = 4;
+            LabelCurrentPage.Text = "label1";
+            // 
             // TrainWizardWindow
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(800, 450);
+            Controls.Add(LabelCurrentPage);
             Controls.Add(BtNextStep);
             Controls.Add(BtLastStep);
             Controls.Add(pictureBox1);
@@ -88,6 +99,7 @@
             Load += TrainWizardWindow_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -96,5 +108,6 @@
         private PictureBox pictureBox1;
         private Button BtLastStep;
         private Button BtNextStep;
+        private Label LabelCurrentPage;
     }
 }

@@ -25,17 +25,8 @@ namespace Zhiyun.Winform.Components
 
 
 
-    public class WizardPageCollection : Dictionary<string, WizardPage>
+    public class WizardPageCollection : List<WizardPage>
     {
-        public TPage? GetPage<TPage>() where TPage : WizardPage
-        {
-            if (TryGetValue(typeof(TPage).Name, out var page)) return page as TPage;
-            else return null;
-        }
-
-        public void AddPage<TPage>(string pageName, TPage page) where TPage : WizardPage
-        {
-            if (!ContainsKey(pageName)) Add(pageName, page);
-        }
+        public TPage? GetPage<TPage>() where TPage : WizardPage => Find(s => s is TPage) as TPage;
     }
 }

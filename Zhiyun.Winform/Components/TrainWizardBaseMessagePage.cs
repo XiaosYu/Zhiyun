@@ -12,9 +12,10 @@ namespace Zhiyun.Winform.Components
 {
     public partial class TrainWizardBaseMessagePage : WizardPage
     {
-        public TrainWizardBaseMessagePage()
+        public TrainWizardBaseMessagePage(Control control)
         {
             InitializeComponent();
+            Parent = control;
         }
 
         public string PropjectType => comboBox1.Text;

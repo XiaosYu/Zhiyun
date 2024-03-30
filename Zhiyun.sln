@@ -15,9 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhiyun.Web.API", "Zhiyun.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhiyun.Console", "Zhiyun.Console\Zhiyun.Console.csproj", "{66EFB188-862B-4486-9C40-75362D2ACD86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhiyun.TrainTask", "Zhiyun.TrainTask\Zhiyun.TrainTask.csproj", "{47562FE2-FE6C-4FBB-9892-2737EBC56FBF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhiyun.Python", "Zhiyun.Python\Zhiyun.Python.csproj", "{4DDFAC99-337A-45AC-A7F3-A66B31351277}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhiyun.TrainTask", "Zhiyun.TrainTask\Zhiyun.TrainTask.csproj", "{47562FE2-FE6C-4FBB-9892-2737EBC56FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +51,6 @@ Global
 		{47562FE2-FE6C-4FBB-9892-2737EBC56FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47562FE2-FE6C-4FBB-9892-2737EBC56FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47562FE2-FE6C-4FBB-9892-2737EBC56FBF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DDFAC99-337A-45AC-A7F3-A66B31351277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DDFAC99-337A-45AC-A7F3-A66B31351277}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DDFAC99-337A-45AC-A7F3-A66B31351277}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DDFAC99-337A-45AC-A7F3-A66B31351277}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

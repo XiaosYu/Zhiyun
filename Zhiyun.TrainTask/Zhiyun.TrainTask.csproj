@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zhiyun.Python\Zhiyun.Python.csproj" />
     <ProjectReference Include="..\Zhiyun.Utilities\Zhiyun.Utilities.csproj" />
   </ItemGroup>
 

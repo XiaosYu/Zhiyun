@@ -39,12 +39,9 @@
             SToolStripMenuItem = new ToolStripMenuItem();
             AToolStripMenuItem = new ToolStripMenuItem();
             XToolStripMenuItem = new ToolStripMenuItem();
-            MToolStripMenuItem = new ToolStripMenuItem();
-            EToolStripMenuItemToolStripMenuItem = new ToolStripMenuItem();
-            ToolHStripMenuItemToolStripMenuItem = new ToolStripMenuItem();
-            ProjectName = new TextBox();
             EToolStripMenuItem = new ToolStripMenuItem();
-            IToolStripMenuItem = new ToolStripMenuItem();
+            ProjectName = new TextBox();
+            EToolStripMenuItemToolStripMenuItem = new ToolStripMenuItem();
             MenuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -52,7 +49,6 @@
             // 
             NodeEditor.AllowDrop = true;
             NodeEditor.BackColor = Color.FromArgb(34, 34, 34);
-            NodeEditor.BorderThickness = 3;
             NodeEditor.Curvature = 0.7F;
             NodeEditor.Location = new Point(287, 45);
             NodeEditor.LocationBackColor = Color.FromArgb(120, 0, 0, 0);
@@ -60,7 +56,6 @@
             NodeEditor.MarkForeColor = Color.FromArgb(180, 0, 0, 0);
             NodeEditor.MinimumSize = new Size(100, 100);
             NodeEditor.Name = "NodeEditor";
-            NodeEditor.Radians = 5;
             NodeEditor.Size = new Size(1271, 774);
             NodeEditor.TabIndex = 0;
             NodeEditor.Text = "NodeEditor";
@@ -104,7 +99,7 @@
             // 
             MenuStrip.BackColor = Color.FromArgb(34, 34, 34);
             MenuStrip.ImageScalingSize = new Size(20, 20);
-            MenuStrip.Items.AddRange(new ToolStripItem[] { FToolStripMenuItem, MToolStripMenuItem, EToolStripMenuItemToolStripMenuItem, ToolHStripMenuItemToolStripMenuItem });
+            MenuStrip.Items.AddRange(new ToolStripItem[] { FToolStripMenuItem, EToolStripMenuItem, EToolStripMenuItemToolStripMenuItem });
             MenuStrip.Location = new Point(0, 0);
             MenuStrip.Name = "MenuStrip";
             MenuStrip.Size = new Size(1570, 28);
@@ -127,7 +122,7 @@
             NToolStripMenuItem.ImageTransparentColor = Color.Magenta;
             NToolStripMenuItem.Name = "NToolStripMenuItem";
             NToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-            NToolStripMenuItem.Size = new Size(224, 26);
+            NToolStripMenuItem.Size = new Size(202, 26);
             NToolStripMenuItem.Text = "新建(&N)";
             NToolStripMenuItem.Click += NToolStripMenuItem_Click;
             // 
@@ -139,7 +134,7 @@
             OToolStripMenuItem.ImageTransparentColor = Color.Magenta;
             OToolStripMenuItem.Name = "OToolStripMenuItem";
             OToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
-            OToolStripMenuItem.Size = new Size(224, 26);
+            OToolStripMenuItem.Size = new Size(202, 26);
             OToolStripMenuItem.Text = "打开(&O)";
             OToolStripMenuItem.Click += OToolStripMenuItem_Click;
             // 
@@ -151,7 +146,7 @@
             SToolStripMenuItem.ImageTransparentColor = Color.Magenta;
             SToolStripMenuItem.Name = "SToolStripMenuItem";
             SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
-            SToolStripMenuItem.Size = new Size(224, 26);
+            SToolStripMenuItem.Size = new Size(202, 26);
             SToolStripMenuItem.Text = "保存(&S)";
             SToolStripMenuItem.Click += SToolStripMenuItem_Click;
             // 
@@ -160,7 +155,7 @@
             AToolStripMenuItem.BackColor = Color.FromArgb(34, 34, 34);
             AToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             AToolStripMenuItem.Name = "AToolStripMenuItem";
-            AToolStripMenuItem.Size = new Size(224, 26);
+            AToolStripMenuItem.Size = new Size(202, 26);
             AToolStripMenuItem.Text = "另存为(&A)";
             AToolStripMenuItem.Click += AToolStripMenuItem_Click;
             // 
@@ -169,31 +164,16 @@
             XToolStripMenuItem.BackColor = Color.FromArgb(34, 34, 34);
             XToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
             XToolStripMenuItem.Name = "XToolStripMenuItem";
-            XToolStripMenuItem.Size = new Size(224, 26);
+            XToolStripMenuItem.Size = new Size(202, 26);
             XToolStripMenuItem.Text = "退出(&X)";
             // 
-            // MToolStripMenuItem
+            // EToolStripMenuItem
             // 
-            MToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { EToolStripMenuItem, IToolStripMenuItem });
-            MToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
-            MToolStripMenuItem.Name = "MToolStripMenuItem";
-            MToolStripMenuItem.Size = new Size(78, 24);
-            MToolStripMenuItem.Text = "模块(&M)";
-            // 
-            // EToolStripMenuItemToolStripMenuItem
-            // 
-            EToolStripMenuItemToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
-            EToolStripMenuItemToolStripMenuItem.Name = "EToolStripMenuItemToolStripMenuItem";
-            EToolStripMenuItemToolStripMenuItem.Size = new Size(72, 24);
-            EToolStripMenuItemToolStripMenuItem.Text = "训练(&T)";
-            EToolStripMenuItemToolStripMenuItem.Click += EToolStripMenuItemToolStripMenuItem_Click;
-            // 
-            // ToolHStripMenuItemToolStripMenuItem
-            // 
-            ToolHStripMenuItemToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
-            ToolHStripMenuItemToolStripMenuItem.Name = "ToolHStripMenuItemToolStripMenuItem";
-            ToolHStripMenuItemToolStripMenuItem.Size = new Size(75, 24);
-            ToolHStripMenuItemToolStripMenuItem.Text = "帮助(&H)";
+            EToolStripMenuItem.ForeColor = SystemColors.ButtonHighlight;
+            EToolStripMenuItem.Name = "EToolStripMenuItem";
+            EToolStripMenuItem.Size = new Size(71, 24);
+            EToolStripMenuItem.Text = "导出(&E)";
+            EToolStripMenuItem.Click += EToolStripMenuItem_Click;
             // 
             // ProjectName
             // 
@@ -206,23 +186,13 @@
             ProjectName.TabIndex = 5;
             ProjectName.Text = "未命名项目";
             // 
-            // EToolStripMenuItem
+            // EToolStripMenuItemToolStripMenuItem
             // 
-            EToolStripMenuItem.BackColor = Color.FromArgb(34, 34, 34);
-            EToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
-            EToolStripMenuItem.Name = "EToolStripMenuItem";
-            EToolStripMenuItem.Size = new Size(224, 26);
-            EToolStripMenuItem.Text = "导出模块(&E)";
-            EToolStripMenuItem.Click += EToolStripMenuItem_Click;
-            // 
-            // IToolStripMenuItem
-            // 
-            IToolStripMenuItem.BackColor = Color.FromArgb(34, 34, 34);
-            IToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
-            IToolStripMenuItem.Name = "IToolStripMenuItem";
-            IToolStripMenuItem.Size = new Size(224, 26);
-            IToolStripMenuItem.Text = "导入模块(&I)";
-            IToolStripMenuItem.Click += IToolStripMenuItem_Click;
+            EToolStripMenuItemToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
+            EToolStripMenuItemToolStripMenuItem.Name = "EToolStripMenuItemToolStripMenuItem";
+            EToolStripMenuItemToolStripMenuItem.Size = new Size(71, 24);
+            EToolStripMenuItemToolStripMenuItem.Text = "训练(&E)";
+            EToolStripMenuItemToolStripMenuItem.Click += EToolStripMenuItemToolStripMenuItem_Click;
             // 
             // NetworkWindow
             // 
@@ -258,10 +228,7 @@
         private ToolStripMenuItem AToolStripMenuItem;
         private ToolStripMenuItem XToolStripMenuItem;
         private TextBox ProjectName;
-        private ToolStripMenuItem MToolStripMenuItem;
-        private ToolStripMenuItem EToolStripMenuItemToolStripMenuItem;
-        private ToolStripMenuItem ToolHStripMenuItemToolStripMenuItem;
         private ToolStripMenuItem EToolStripMenuItem;
-        private ToolStripMenuItem IToolStripMenuItem;
+        private ToolStripMenuItem EToolStripMenuItemToolStripMenuItem;
     }
 }

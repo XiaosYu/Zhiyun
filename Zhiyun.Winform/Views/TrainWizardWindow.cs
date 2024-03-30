@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Zhiyun.Utilities.Extensions;
 
 namespace Zhiyun.Winform.Views
 {
@@ -18,36 +16,61 @@ namespace Zhiyun.Winform.Views
         {
             InitializeComponent();
 
-            _currentPage = new TrainWizardBaseMessagePage();
-            SetPage(_currentPage);
+            Pages.AddRange([
+                new TrainWizardBaseMessagePage(WizardPanel),
+                new TrainWizardSelectTrainPlateformPage(WizardPanel),
+                new TrainWizardModuleMessagePage(WizardPanel),
+                new TrainWizardTrainOptionsPage(WizardPanel)
+            ]);
         }
 
-        private readonly WizardPageCollection MemoryPages = [];
-        private Dictionary<string, string> PreviousPageRelations = [];
+        private readonly WizardPageCollection Pages = [];
 
-        private WizardPage _currentPage;
-        private WizardPage? _previousPage;
+        private int currentPageIndex = 0;
 
-        public WizardPage CurrentPage
+        public int CurrentPageIndex
         {
-            get => _currentPage;
-            set => SetPage(value);
+            get => currentPageIndex;
+            set
+            {
+                if ((value - currentPageIndex) > 0 && !Pages[CurrentPageIndex].CanMoveNextPage())
+                {
+                    LabelCurrentPage.Invoke(() =>
+                    {
+                        Task.Factory.StartNew(async () =>
+                        {
+                            var lastText = LabelCurrentPage.Text;
+                            var lastColor = LabelCurrentPage.ForeColor;
+                            LabelCurrentPage.Text = "当前界面无法跳转，请完成信息填写";
+                            LabelCurrentPage.ForeColor = Color.Red;
+                            await Task.Delay(2000);
+                            LabelCurrentPage.Text = lastText;
+                            LabelCurrentPage.ForeColor = lastColor;
+                        });
+                    });
+                    return;
+                }
+
+                if (value < 0) value = 0;
+                if (value > Pages.Count - 1) value = Pages.Count - 1;
+
+                Pages[CurrentPageIndex].Hide();
+                currentPageIndex = value;
+                Pages[CurrentPageIndex].Show();
+
+                OnPageChanged(currentPageIndex);
+            }
         }
 
-        private void SetPage(WizardPage value)
+        private void OnPageChanged(int currentPage)
         {
-            _previousPage = _currentPage;
-            _previousPage?.Hide();
-            MemoryPages.AddPage(value.GetClassName(), value);
-
-            _currentPage = value;
-            _currentPage.Parent = _previousPage?.Parent ?? WizardPanel;
-            _currentPage.Show();
+            LabelCurrentPage.Text = $"{currentPage + 1}/{Pages.Count}";
         }
 
         private void TrainWizardWindow_Load(object sender, EventArgs e)
         {
-           
+            LabelCurrentPage.Text = $"1/{Pages.Count}";
+            CurrentPageIndex = 0;
         }
 
 
@@ -55,13 +78,12 @@ namespace Zhiyun.Winform.Views
 
         private void BtNextStep_Click(object sender, EventArgs e)
         {
-            var nextPage = CurrentPage.GetNextWizardPage();
-            if (nextPage != null) CurrentPage = nextPage;
+            CurrentPageIndex++;
         }
 
         private void BtLastStep_Click(object sender, EventArgs e)
         {
-            
+            CurrentPageIndex--;
         }
     }
 }

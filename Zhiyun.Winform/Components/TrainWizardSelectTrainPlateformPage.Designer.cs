@@ -91,7 +91,7 @@
             Controls.Add(label1);
             DoubleBuffered = true;
             Name = "TrainWizardSelectTrainPlateformPage";
-            Size = new Size(1284, 439);
+            Size = new Size(999, 511);
             Load += TrainWizardSelectTrainPlateformPage_Load;
             ResumeLayout(false);
             PerformLayout();
