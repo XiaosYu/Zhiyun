@@ -263,5 +263,15 @@ namespace Zhiyun.Winform.Views
             var wizard = new TrainWizardWindow();
             wizard.Show();
         }
+
+        private void IToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var dialog = new OpenFileDialog();
+            dialog.Filter = "模块 (.zyn)|*.zyn";
+            if (dialog.ShowDialog() == DialogResult.OK && dialog.FileName != default)
+            {
+               
+            }
+        }
     }
 }

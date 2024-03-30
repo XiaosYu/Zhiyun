@@ -100,7 +100,7 @@
             Controls.Add(textBox1);
             Controls.Add(label1);
             Name = "TrainWizardModuleMessagePage";
-            Size = new Size(999, 511);
+            Size = new Size(1284, 405);
             Load += TrainWizardModuleMessagePage_Load;
             ResumeLayout(false);
             PerformLayout();
