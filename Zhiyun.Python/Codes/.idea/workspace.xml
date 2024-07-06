@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="791b3d17-9d1b-4256-94a4-f7bf2688cf05" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.Console/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.Console/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.Console/Zhiyun.Console.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.Console/Zhiyun.Console.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.TrainTask/Models/TrainTaskOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.TrainTask/Models/TrainTaskOptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.TrainTask/Zhiyun.TrainTask.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.TrainTask/Zhiyun.TrainTask.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.Winform/Components/TrainWizardBaseMessagePage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.Winform/Components/TrainWizardBaseMessagePage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.Winform/Components/WizardPage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.Winform/Components/WizardPage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.Winform/Views/TrainWizardWindow.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.Winform/Views/TrainWizardWindow.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.Winform/Views/TrainWizardWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.Winform/Views/TrainWizardWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.Winform/Views/TrainWizardWindow.resx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.Winform/Views/TrainWizardWindow.resx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Zhiyun.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../../Zhiyun.sln" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Neural Network Project.py.child.0" />
+        <option value="Neural Network Project" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2boZILPVysodsYUagxEwzSbtGdf" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/纸鸢/Desktop/Zhiyun/Zhiyun.Python&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;cn.yiiguxing.plugin.translate&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\纸鸢\Desktop\Zhiyun\Zhiyun.Python" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\纸鸢\Desktop\Zhiyun\Zhiyun.Python\Codes" />
+      <recent name="C:\Users\纸鸢\Desktop\Zhiyun\Zhiyun.Python\zhiyun\modules" />
+      <recent name="C:\Users\纸鸢\Desktop\Zhiyun\Zhiyun.Python\zhiyun" />
+      <recent name="C:\Users\纸鸢\Desktop\Zhiyun\Zhiyun.Python\zhiyun\modules\modules" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.te">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Zhiyun.Python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="te" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Zhiyun.Python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/te.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.te" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="791b3d17-9d1b-4256-94a4-f7bf2688cf05" name="更改" comment="" />
+      <created>1706883311851</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706883311851</updated>
+      <workItem from="1706883314116" duration="739000" />
+      <workItem from="1706932897979" duration="851000" />
+      <workItem from="1706949147257" duration="8013000" />
+      <workItem from="1707056648700" duration="5000" />
+      <workItem from="1707750497810" duration="85000" />
+      <workItem from="1708354342714" duration="222000" />
+      <workItem from="1708949365636" duration="7367000" />
+      <workItem from="1708961048734" duration="22661000" />
+      <workItem from="1709119648412" duration="7274000" />
+      <workItem from="1709205355193" duration="821000" />
+      <workItem from="1710307363098" duration="7830000" />
+      <workItem from="1711105866332" duration="936000" />
+      <workItem from="1711115208226" duration="599000" />
+      <workItem from="1711173600122" duration="3185000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Zhiyun_Python$te.coverage" NAME="te 覆盖结果" MODIFIED="1709028377958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Zhiyun_Python$main.coverage" NAME="main 覆盖结果" MODIFIED="1709132673690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Codes$te.coverage" NAME="te 覆盖结果" MODIFIED="1710320679335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

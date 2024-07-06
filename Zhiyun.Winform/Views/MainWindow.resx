@@ -117,76 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="richTextBox1.Text" xml:space="preserve">
-    <value>项目名称:MNIST分类
-训练模板:图片分类
-
-训练设备:CUDA
-训练损失函数:CrossEnrtyLoss
-训练优化器:AdamW
-
-当前Epoch:[127/300]
-当前LR:0.0001698
-
-epoch:[1/300](Train:6.2s,Eval:1.2s)
-epoch:[2/300](Train:7.3s,Eval:0.9s)
-epoch:[3/300](Train:6.2s,Eval:1.2s)
-epoch:[4/300](Train:6.2s,Eval:1.2s)
-epoch:[5/300](Train:7.0s,Eval:1.2s)
-epoch:[6/300](Train:6.8s,Eval:1.2s)
-epoch:[7/300](Train:6.7s,Eval:1.3s)
-epoch:[8/300](Train:6.5s,Eval:0.9s)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</value>
-  </data>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

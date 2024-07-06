@@ -110,7 +110,7 @@
             Controls.Add(label1);
             Controls.Add(tbName);
             Name = "TrainWizardBaseMessagePage";
-            Size = new Size(999, 511);
+            Size = new Size(1060, 405);
             Load += TrainWizardBaseMessagePage_Load;
             ResumeLayout(false);
             PerformLayout();

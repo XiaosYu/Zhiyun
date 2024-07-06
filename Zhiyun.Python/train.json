@@ -1,0 +1,116 @@
+{
+  "HyperParameters": {
+    "BatchSize": 16,
+    "Device": "cuda",
+    "Epochs": 200,
+    "LR": 1e-4
+  },
+  "Module":[
+    {
+      "ID": 0,
+      "Type": "InLayer",
+      "Parameters":{}
+    },
+    {
+      "ID": 1,
+      "Type": "Sequential",
+      "Parameters":{
+        "Layers":[
+          {
+            "ID": null,
+            "Type": "Linear",
+            "Parameters":{
+              "in_features": 2,
+              "out_features": 16,
+              "bias": true
+            }
+          },
+          {
+            "ID": null,
+            "Type": "Linear",
+            "Parameters":{
+              "in_features": 16,
+              "out_features": 32,
+              "bias": true
+            }
+          },
+          {
+            "ID": null,
+            "Type": "Linear",
+            "Parameters":{
+              "in_features": 32,
+              "out_features": 64,
+              "bias": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "ID": 2,
+      "Type": "Linear",
+      "Parameters":{
+        "in_features": 64,
+        "out_features": 2,
+        "bias": true
+      }
+    },
+    {
+      "ID": 3,
+      "Type": "Linear",
+      "Parameters":{
+        "in_features": 64,
+        "out_features": 2,
+        "bias": true
+      }
+    },
+    {
+      "ID": 4,
+      "Type": "Add",
+      "Parameters":{}
+    },
+    {
+      "ID": 5,
+      "Type": "Softmax",
+      "Parameters":{
+        "dim": 1
+      }
+    },
+    {
+      "ID": 6,
+      "Type": "OutLayer",
+      "Parameters":{}
+    }
+  ],
+  "Graph":[
+    {"ID": 0, "Input": null, "Output": [1]},
+    {"ID": 1, "Input": [0], "Output": [2, 3]},
+    {"ID": 2, "Input": [1], "Output": [4]},
+    {"ID": 3, "Input": [1], "Output": [4]},
+    {"ID": 4, "Input": [2, 3], "Output": [5]},
+    {"ID": 5, "Input": [4], "Output": [6]},
+    {"ID": 6, "Input": [5], "Output": null}
+  ],
+  "TaskID": 1000000001,
+  "Type": "classification",
+  "Task": "train",
+  "Port": 5888,
+  "Memory": 3000,
+  "Pre-training": "",
+  "Optimizer": "Adam",
+  "Criterion": "CrossEntropyLoss",
+  "EvalTimes": 100,
+  "TestTimes": 100,
+  "Data": {
+    "Path": "data.csv",
+    "TrainRate": 0.7,
+    "EvalRate": 0.2,
+    "TestRate": 0.1,
+    "Features": [1, 2],
+    "Targets": [0],
+    "Preprocess": {
+      "Features": ["StandardNormalize", "LinearNormalize"],
+      "Targets": []
+    }
+  }
+}
